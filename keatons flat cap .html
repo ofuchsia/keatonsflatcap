@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Friendless Ghoul ✦ Buster Keaton Archive</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            blush: {
+              50: '#fff1f5',
+              100: '#ffe4ed',
+              200: '#fbcfe8',
+              300: '#f9a8d4',
+              400: '#f472b6',
+              500: '#ec4899',
+              600: '#db2777',
+            },
+            babyblue: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+            },
+            cream: '#fdfbf7',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            cute: ['"Fredoka"', 'cursive', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          gridTemplateColumns: {
+            '5-cols': 'repeat(5, minmax(0, 1fr))',
+          },
+          animation: {
+            'gentle-float': 'gentleFloat 3.5s ease-in-out infinite',
+            'bounce-slight': 'bounceSlight 2s infinite',
+          },
+          keyframes: {
+            gentleFloat: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-4px)' },
+            },
+            bounceSlight: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-3px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #fdfafc;
+      background-image: 
+        radial-gradient(#fbcfe8 0.9px, transparent 0.9px), 
+        radial-gradient(#bae6fd 0.9px, #fdfafc 0.9px);
+      background-size: 24px 24px;
+      background-position: 0 0, 12px 12px;
+      background-attachment: fixed;
+      transition: background-color 0.4s ease;
+    }
+
+    body.nitrate-mode {
+      background-color: #f4ece1 !important;
+      background-image: 
+        radial-gradient(#d4c3b3 0.9px, transparent 0.9px), 
+        radial-gradient(#c7b299 0.9px, #f4ece1 0.9px) !important;
+      background-attachment: fixed !important;
+    }
+
+    #nitrateOverlay {
+      pointer-events: none;
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      backdrop-filter: sepia(0.65) contrast(1.18) brightness(0.92) saturate(0.85);
+      -webkit-backdrop-filter: sepia(0.65) contrast(1.18) brightness(0.92) saturate(0.85);
+      background: radial-gradient(circle at center, rgba(244, 236, 225, 0.05) 50%, rgba(40, 25, 12, 0.38) 100%);
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5), inset 0 0 180px rgba(35, 20, 10, 0.6);
+      animation: filmFlicker 0.15s infinite;
+    }
+    body.nitrate-mode #nitrateOverlay {
+      display: block;
+    }
+
+    @keyframes filmFlicker {
+      0% { opacity: 0.94; }
+      50% { opacity: 0.88; }
+      100% { opacity: 0.96; }
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #fdf2f8;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #f472b6;
+      border-radius: 9999px;
+      border: 2px solid #fdf2f8;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #db2777;
+    }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(251, 207, 232, 0.75);
+    }
+
+    body.nitrate-mode .glass-panel {
+      background: rgba(248, 242, 234, 0.92);
+      border-color: rgba(216, 198, 170, 0.85);
+    }
+
+    .photo-card {
+      box-shadow: 0 4px 14px -3px rgba(244, 114, 182, 0.16), 0 3px 8px -2px rgba(56, 189, 248, 0.12);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 22px -3px rgba(244, 114, 182, 0.26), 0 6px 12px -2px rgba(56, 189, 248, 0.20);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .accordion-content.open {
+      max-height: 280px;
+    }
+  </style>
+</head>
+
+<body class="text-slate-700 min-h-screen flex flex-col font-sans selection:bg-pink-200 selection:text-pink-800">
+
+  <!-- 1920s Nitrate Film Vignette Overlay -->
+  <div id="nitrateOverlay"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 glass-panel shadow-sm border-b border-blush-200">
+    <div class="max-w-[1680px] mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between gap-3">
+      
+      <!-- Brand & Mobile Sidebar Toggle -->
+      <div class="flex items-center gap-3">
+        <button 
+          id="mobileMenuBtn" 
+          class="lg:hidden p-2 rounded-xl bg-white border border-blush-200 text-blush-500 hover:bg-blush-50 focus:outline-none cursor-pointer"
+          title="Toggle Timeline Menu"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <div class="flex items-center gap-2.5 select-none">
+          <!-- Porkpie Hat Button: Toggles "Stone Face" Mode -->
+          <button 
+            id="porkpieModeBtn" 
+            title="Click Buster's Hat to toggle 1920s Nitrate Film Mode!" 
+            class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blush-200 via-white to-babyblue-200 flex items-center justify-center border-2 border-blush-300 shadow-sm hover:scale-105 active:scale-95 transition-all p-1 cursor-pointer"
+          >
+            <svg viewBox="0 0 100 56" class="w-full h-full max-w-[32px] max-h-[22px]" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="50" cy="38" rx="46" ry="12" fill="#5b646c"/>
+              <ellipse cx="50" cy="36.5" rx="44" ry="10.5" fill="#88929b"/>
+              <ellipse cx="50" cy="35.5" rx="42" ry="9" fill="#a4adb6"/>
+
+              <path d="M 28 34 C 28 19, 72 19, 72 34 Z" fill="#717c86"/>
+
+              <path d="M 28 34 C 34 37.5 66 37.5 72 34 L 72 27 C 66 30.5 34 30.5 28 27 Z" fill="#1e2227"/>
+              <rect x="63" y="25.5" width="5.5" height="9.5" rx="1.5" fill="#111418"/>
+              <rect x="64.5" y="26" width="2" height="8.5" fill="#383e46"/>
+
+              <ellipse cx="50" cy="20" rx="21.5" ry="6.5" fill="#505963"/>
+              <ellipse cx="50" cy="19.5" rx="19.5" ry="5.5" fill="#88929b"/>
+              <ellipse cx="50" cy="20" rx="15" ry="3.5" fill="#6f7983"/>
+            </svg>
+          </button>
+
+          <!-- Site Title / Home Reset Trigger -->
+          <a href="#all" class="group flex flex-col">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-blush-500 bg-blush-50 px-2 py-0.5 rounded-full border border-blush-200">
+                1895–1966
+              </span>
+              <span class="text-[10px] font-bold text-babyblue-500 hidden sm:inline">The Great Stone Face</span>
+              <span id="nitrateModeBadge" class="hidden text-[9px] font-extrabold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full border border-amber-300">
+                📽️ 1920s Nitrate
+              </span>
+            </div>
+            <h1 class="font-cute text-xl sm:text-2xl font-extrabold tracking-tight text-slate-800">
+              <span class="bg-gradient-to-r from-blush-500 via-pink-400 to-babyblue-500 bg-clip-text text-transparent">
+                Friendless Ghoul
+              </span>
+              <span class="text-xs font-serif italic text-pink-400 font-normal hidden md:inline ml-1">✦ Buster Keaton Stills Archive</span>
+            </h1>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Search & Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Search bar -->
+        <div class="relative hidden sm:block">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search films, stunts, co-stars..." 
+            class="w-48 md:w-64 pl-8 pr-7 py-1.5 text-xs rounded-full bg-white border border-blush-200 focus:outline-none focus:ring-2 focus:ring-blush-300 text-slate-700 placeholder:text-slate-400 shadow-inner"
+          />
+          <svg class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <button id="clearSearchBtn" class="hidden absolute right-2.5 top-2 text-xs text-slate-400 hover:text-slate-600 cursor-pointer">✕</button>
+        </div>
+
+        <!-- Add Photo Button -->
+        <button 
+          id="openAddModalBtn"
+          class="flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-gradient-to-r from-blush-400 via-pink-400 to-babyblue-400 text-white shadow hover:shadow-md hover:opacity-95 transition-all transform active:scale-95 cursor-pointer"
+        >
+          <span>＋</span>
+          <span class="hidden sm:inline">Add Buster Photo</span>
+          <span class="sm:hidden">Add</span>
+        </button>
+
+        <!-- Favorites Button -->
+        <button 
+          id="favoritesToggleBtn"
+          title="Filter Loved Photos"
+          class="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-white border border-blush-200 text-blush-500 hover:bg-blush-50 transition-all shadow-sm active:scale-95 cursor-pointer"
+        >
+          <svg class="w-4 h-4 fill-blush-400 text-blush-400" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <span id="favCountBadge" class="text-xs font-extrabold text-slate-700">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Layout Wrapper -->
+  <div class="flex-grow max-w-[1680px] w-full mx-auto px-3 sm:px-6 py-4 flex gap-6 relative">
+    
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="mobileBackdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden lg:hidden"></div>
+
+    <!-- LEFT SIDEBAR: Static and pinned on desktop, drawer on mobile -->
+    <aside 
+      id="sidebarMenu" 
+      class="max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-50 max-lg:w-72 max-lg:h-dvh max-lg:bg-white/95 max-lg:backdrop-blur-md max-lg:p-4 max-lg:transform max-lg:-translate-x-full transition-transform duration-300 ease-in-out shrink-0 lg:block lg:w-72 lg:shrink-0"
+    >
+      <div class="glass-panel rounded-3xl p-4 shadow-sm border border-blush-200 flex flex-col lg:sticky lg:top-[88px] lg:max-h-[calc(100vh-108px)]">
+        
+        <div class="flex items-center justify-between border-b border-blush-100 pb-3 shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🎞️</span>
+            <span class="font-cute font-bold text-slate-800 text-sm">Chronology</span>
+          </div>
+          <button 
+            id="closeMobileSidebar" 
+            class="lg:hidden w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="py-2.5 shrink-0">
+          <button 
+            id="sidebarAllLink"
+            class="w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs font-bold bg-gradient-to-r from-pink-50 to-babyblue-50 hover:from-pink-100 hover:to-babyblue-100 text-pink-700 border border-blush-200 transition-all text-left shadow-xs cursor-pointer"
+          >
+            <span class="flex items-center gap-2">
+              <span>🌸</span> All Archives
+            </span>
+            <span id="sidebarTotalBadge" class="text-[10px] bg-white px-2 py-0.5 rounded-full border border-blush-200 text-slate-600 font-extrabold">0</span>
+          </button>
+        </div>
+
+        <div class="overflow-y-auto min-h-0 space-y-3 pr-1">
+          <div class="space-y-1.5" id="erasAccordionContainer"></div>
+
+          <div class="pt-3 border-t border-blush-100">
+            <div class="flex items-center gap-1 text-[11px] font-extrabold uppercase text-slate-400 tracking-wider mb-2">
+              <span>🏷️</span> Popular Tags
+            </div>
+            <div id="quickTagsContainer" class="flex flex-wrap gap-1"></div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- MAIN GALLERY AREA -->
+    <main class="flex-1 min-w-0 flex flex-col">
+      
+      <!-- Mobile Quick Search Field -->
+      <div class="sm:hidden mb-3">
+        <input 
+          type="text" 
+          id="searchInputMobile" 
+          placeholder="Search Buster Keaton stills..." 
+          class="w-full px-3.5 py-2 text-xs rounded-2xl bg-white border border-blush-200 focus:outline-none focus:ring-2 focus:ring-blush-300 text-slate-700 shadow-sm"
+        />
+      </div>
+
+      <!-- Active Filter Banner Header -->
+      <div id="filterBanner" class="mb-4 glass-panel rounded-3xl p-4 sm:p-5 relative overflow-hidden border border-blush-200 bg-gradient-to-r from-pink-50/70 via-white to-sky-50/70 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1">
+              <button 
+                id="resetFilterBtn"
+                class="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-blush-600 hover:text-blush-700 bg-white px-2.5 py-1 rounded-full border border-blush-200 shadow-xs transition-all hover:scale-105 cursor-pointer"
+              >
+                <span>←</span> View All Photos
+              </button>
+              <span id="filterBreadcrumb" class="text-xs font-extrabold text-slate-600"></span>
+            </div>
+            <h2 id="filterHeading" class="font-cute text-xl sm:text-2xl font-extrabold text-slate-800">
+              Filtering Results
+            </h2>
+            <p id="filterSubtitle" class="text-xs text-slate-500 mt-0.5">
+              Archive records from the Buster Keaton permanent collection.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
+            <span id="filteredCountBadge" class="bg-blush-100 text-blush-700 font-extrabold px-3 py-1 rounded-full border border-blush-200">
+              0 photos
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compact 5-Column Photos Grid -->
+      <div 
+        id="photosGrid" 
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3.5"
+      ></div>
+
+      <!-- Empty State Indicator -->
+      <div id="emptyState" class="hidden text-center py-16 px-4 glass-panel rounded-3xl my-6 border border-blush-200">
+        <div class="w-16 h-16 mx-auto mb-2 rounded-2xl bg-blush-100 flex items-center justify-center text-3xl animate-bounce-slight">
+          🎩
+        </div>
+        <h3 class="font-cute text-xl font-bold text-slate-800 mb-1">No Buster Stills Found</h3>
+        <p class="text-slate-500 text-xs max-w-sm mx-auto mb-4">
+          There are no photos under this exact era, subcategory or search term right now.
+        </p>
+        <button 
+          id="clearAllFiltersBtn"
+          class="px-4 py-2 bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold rounded-full shadow hover:opacity-95 transition-all cursor-pointer"
+        >
+          Reset To All Stills 🌸
+        </button>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div 
+    id="lightboxModal" 
+    class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 opacity-0 pointer-events-none transition-opacity duration-300"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div 
+      id="lightboxCard"
+      class="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[92vh] flex flex-col md:flex-row overflow-hidden border-2 border-blush-200 transform scale-95 transition-transform duration-300"
+    >
+      <div class="md:w-7/12 bg-neutral-900 flex items-center justify-center relative p-3 select-none">
+        <img 
+          id="lightboxImage" 
+          src="" 
+          alt="" 
+          class="max-h-[46vh] md:max-h-[80vh] w-auto max-w-full object-contain rounded-xl shadow-lg transition-transform duration-200"
+        />
+        
+        <button id="lbPrevBtn" class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center font-bold shadow transition-all hover:scale-110 cursor-pointer">
+          ❮
+        </button>
+        <button id="lbNextBtn" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center font-bold shadow transition-all hover:scale-110 cursor-pointer">
+          ❯
+        </button>
+      </div>
+
+      <div class="md:w-5/12 p-5 flex flex-col justify-between bg-white overflow-y-auto">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span id="lightboxEraBadge" class="text-[10px] font-extrabold text-blush-600 bg-blush-50 px-2 py-0.5 rounded-full border border-blush-200">
+                1920–1928
+              </span>
+              <span id="lightboxSubcategoryBadge" class="text-[10px] font-extrabold text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
+                Silent Films
+              </span>
+            </div>
+            <button id="closeLightboxBtn" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-pink-100 text-slate-500 hover:text-pink-600 flex items-center justify-center font-bold transition-colors cursor-pointer">
+              ✕
+            </button>
+          </div>
+
+          <h3 id="lightboxTitle" class="font-cute text-xl sm:text-2xl font-bold text-slate-800 mb-1 leading-snug">
+            Still Title
+          </h3>
+          <p id="lightboxYear" class="text-xs font-semibold text-slate-400 mb-3">Year / Film context</p>
+
+          <p id="lightboxDescription" class="text-slate-600 text-xs leading-relaxed mb-4">
+            Archival historical context notes.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Click Tag to Filter:</span>
+            <div id="lightboxTags" class="flex flex-wrap gap-1"></div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex items-center gap-2">
+          <button 
+            id="lightboxHeartBtn" 
+            class="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full border border-blush-300 text-blush-500 font-bold text-xs hover:bg-blush-50 transition-all active:scale-95 shadow-xs cursor-pointer"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span id="lightboxHeartLabel">Love Still (0)</span>
+          </button>
+
+          <button 
+            id="copyShareLinkBtn" 
+            class="px-3 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+            title="Copy shareable link"
+          >
+            <span>🔗</span> Share
+          </button>
+
+          <button 
+            id="lightboxDeleteBtn"
+            class="px-3 py-2 rounded-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 text-xs font-bold transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+            title="Delete this photo"
+          >
+            <span>🗑️</span> Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div 
+    id="deleteConfirmModal"
+    class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200"
+    role="dialog"
+  >
+    <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-5 border-2 border-rose-200 transform scale-95 transition-transform duration-200 text-center">
+      <div class="w-12 h-12 mx-auto mb-2 rounded-2xl bg-rose-100 text-rose-500 flex items-center justify-center text-2xl font-bold">
+        🗑️
+      </div>
+      <h3 class="font-cute text-lg font-bold text-slate-800 mb-1">Delete Buster Still?</h3>
+      <p class="text-xs text-slate-500 mb-1">Are you sure you want to remove this photo from the archive?</p>
+      <p id="deleteTargetTitle" class="text-xs font-bold text-slate-700 bg-slate-50 p-2 rounded-xl mb-4 truncate border border-slate-200">Photo Title</p>
+
+      <div class="flex items-center justify-center gap-2">
+        <button 
+          id="cancelDeleteBtn"
+          class="flex-1 py-2 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer"
+        >
+          Cancel
+        </button>
+        <button 
+          id="confirmDeleteBtn"
+          class="flex-1 py-2 rounded-full bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold shadow transition-all cursor-pointer"
+        >
+          Delete Still
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Photo & Sync Modal -->
+  <div 
+    id="addPhotoModal" 
+    class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    role="dialog"
+  >
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Top Modal Nav: Add Photo vs Sync & Backup -->
+      <div class="flex items-center justify-between mb-3 border-b border-blush-100 pb-2">
+        <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl">
+          <button 
+            type="button"
+            id="modalTabAdd" 
+            class="px-3 py-1 rounded-xl text-xs font-bold bg-white text-pink-600 shadow-xs transition-all cursor-pointer"
+          >
+            🌸 Add Photo
+          </button>
+          <button 
+            type="button"
+            id="modalTabSync" 
+            class="px-3 py-1 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-800 transition-all cursor-pointer"
+          >
+            🔄 Sync & Backup
+          </button>
+        </div>
+        <button id="closeAddModalBtn" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer">✕</button>
+      </div>
+
+      <!-- SECTION 1: ADD PHOTO FORM -->
+      <div id="addPhotoSection">
+        <form id="addPhotoForm" class="space-y-3">
+          <!-- Source Toggle: Device Upload vs URL -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500">Photo Source *</label>
+              <div class="inline-flex p-0.5 rounded-xl bg-slate-100 text-[10px] font-bold">
+                <button 
+                  type="button" 
+                  id="tabUploadDevice"
+                  class="px-2.5 py-0.5 rounded-lg bg-white shadow-xs text-pink-600 transition-all cursor-pointer"
+                >
+                  📁 PC / Phone (Cloudinary)
+                </button>
+                <button 
+                  type="button" 
+                  id="tabUploadUrl"
+                  class="px-2.5 py-0.5 rounded-lg text-slate-500 hover:text-slate-800 transition-all cursor-pointer"
+                >
+                  🔗 Web URL
+                </button>
+              </div>
+            </div>
+
+            <!-- DEVICE UPLOAD ZONE -->
+            <div id="deviceUploadSection">
+              <label 
+                for="deviceFileInput"
+                id="dropZone"
+                class="border-2 border-dashed border-blush-300 hover:border-blush-500 bg-blush-50/50 hover:bg-blush-50 transition-all rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer group"
+              >
+                <svg class="w-8 h-8 text-pink-400 group-hover:scale-110 transition-transform mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <span class="text-xs font-bold text-slate-700">Select still from PC or Camera Roll</span>
+                <span class="text-[10px] text-slate-400 mt-0.5">Uploads straight to Cloudinary (c7jq5eky)</span>
+                <input 
+                  type="file" 
+                  id="deviceFileInput" 
+                  accept="image/*"
+                  class="hidden"
+                />
+              </label>
+            </div>
+
+            <!-- WEB URL INPUT -->
+            <div id="urlUploadSection" class="hidden">
+              <input 
+                type="url" 
+                id="newUrl" 
+                placeholder="https://...image.jpg" 
+                class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none"
+              />
+            </div>
+
+            <!-- UPLOAD STATUS / PREVIEW -->
+            <div id="uploadStatusBox" class="hidden mt-2 p-2.5 rounded-xl border flex items-center gap-3">
+              <div id="uploadSpinner" class="w-5 h-5 border-2 border-pink-500 border-t-transparent rounded-full animate-spin shrink-0"></div>
+              <img id="uploadPreviewImg" src="" alt="Preview" class="w-12 h-14 object-cover rounded-lg shadow-xs border border-white hidden shrink-0" />
+              <div class="min-w-0 flex-1 text-left">
+                <p class="text-[11px] font-bold text-slate-700 truncate" id="uploadStatusText">Uploading to Cloudinary...</p>
+                <span class="text-[9px] text-pink-600 font-semibold" id="uploadSubStatus">Please wait a moment</span>
+              </div>
+              <button 
+                type="button" 
+                id="clearUploadBtn" 
+                class="text-xs text-slate-400 hover:text-pink-600 p-1 font-bold cursor-pointer hidden"
+                title="Remove image"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Title *</label>
+            <input 
+              type="text" 
+              id="newTitle" 
+              required 
+              placeholder="e.g., Buster on the Beach with Ukulele" 
+              class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Era *</label>
+              <select id="newEra" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white">
+                <option value="1895–1917">1895–1917</option>
+                <option value="1917–1920">1917–1920</option>
+                <option value="1920–1928" selected>1920–1928</option>
+                <option value="1929–1933">1929–1933</option>
+                <option value="1933–1941">1933–1941</option>
+                <option value="1941–1955">1941–1955</option>
+                <option value="1955–1966">1955–1966</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Subcategory *</label>
+              <select id="newSubcategory" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white"></select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year</label>
+            <input 
+              type="text" 
+              id="newYear" 
+              placeholder="e.g., The General (1926)" 
+              class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Tags (Comma-separated)</label>
+            <input 
+              type="text" 
+              id="newTags" 
+              placeholder="porkpie, stunts, rare, vintage" 
+              class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Notes / Description</label>
+            <textarea 
+              id="newDesc" 
+              rows="2" 
+              placeholder="Historical details, stunt lore, co-star notes..." 
+              class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none resize-none"
+            ></textarea>
+          </div>
+
+          <div class="pt-2 flex justify-end gap-2">
+            <button 
+              type="button" 
+              id="cancelAddModalBtn" 
+              class="px-4 py-1.5 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button 
+              type="submit" 
+              id="submitStillBtn"
+              class="px-4 py-1.5 rounded-full bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold shadow hover:opacity-95 cursor-pointer"
+            >
+              Add Still 🌸
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- SECTION 2: SYNC & BACKUP TOOLS -->
+      <div id="syncBackupSection" class="hidden space-y-4 text-left">
+        <div>
+          <h4 class="font-cute font-bold text-sm text-slate-800 mb-1">🔄 Share Archive with Other Devices</h4>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Export your stills as a clean JSON backup file. You can import this file on your phone or send it to friends so everyone sees the exact same archive!
+          </p>
+        </div>
+
+        <div class="p-3 bg-pink-50/50 rounded-2xl border border-blush-200 space-y-2">
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-pink-700 block">💾 Export Collection</span>
+          <p class="text-[11px] text-slate-600">Save all your current stills, including newly added Cloudinary images, to a file.</p>
+          <button 
+            type="button" 
+            id="exportJsonBtn"
+            class="w-full py-2 bg-gradient-to-r from-pink-400 to-blush-500 text-white rounded-xl text-xs font-bold shadow-xs hover:opacity-95 cursor-pointer"
+          >
+            Download Archive (JSON)
+          </button>
+        </div>
+
+        <div class="p-3 bg-sky-50/50 rounded-2xl border border-sky-200 space-y-2">
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-sky-700 block">📥 Import Collection</span>
+          <p class="text-[11px] text-slate-600">Load a JSON file exported from your desktop or another browser.</p>
+          <input 
+            type="file" 
+            id="importJsonInput" 
+            accept=".json" 
+            class="block w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-sky-100 file:text-sky-700 hover:file:bg-sky-200 cursor-pointer"
+          />
+        </div>
+
+        <div class="pt-2 border-t border-slate-100 flex justify-between items-center">
+          <button 
+            type="button" 
+            id="resetDefaultArchiveBtn"
+            class="text-[11px] font-bold text-rose-500 hover:text-rose-700 cursor-pointer"
+          >
+            ⚠️ Reset to Factory Stills
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="fixed bottom-4 right-4 z-50 bg-slate-900 text-white px-4 py-2 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none border border-pink-300">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">Notification</span>
+  </div>
+
+  <script>
+    // Cloudinary Credentials
+    const CLOUDINARY_CLOUD_NAME = 'c7jq5eky';
+    const CLOUDINARY_PRESET = 'keaton_archive';
+
+    const CHRONOLOGY_TREE = [
+      {
+        era: '1895–1917',
+        title: 'Childhood & Vaudeville',
+        subcategories: ['Childhood', 'Muskegon', 'Vaudeville']
+      },
+      {
+        era: '1917–1920',
+        title: 'Comique Era with Roscoe Arbuckle',
+        subcategories: ['Arbuckle Shorts', 'Family', 'Friends']
+      },
+      {
+        era: '1920–1928',
+        title: 'Golden Independent Silent Features',
+        subcategories: ['Silent Films', 'Family', 'Friends']
+      },
+      {
+        era: '1929–1933',
+        title: 'MGM Era & Transition to Sound',
+        subcategories: ['MGM Early Talkies', 'Educational Pictures', 'Behind the Scenes']
+      },
+      {
+        era: '1933–1941',
+        title: 'Columbia Two-Reelers & Studio Writing',
+        subcategories: ['Columbia Shorts', 'Gag Writing & Cameos', 'Portraits']
+      },
+      {
+        era: '1941–1955',
+        title: 'Paris Circus, Television & Revival',
+        subcategories: ['Television', 'Circus Medrano', 'Theater & Variety']
+      },
+      {
+        era: '1955–1966',
+        title: 'Triumphant Rediscovery & Late Years',
+        subcategories: ['Late Film Roles', 'Tributes & Festivals', 'Venice Film Festival']
+      }
+    ];
+
+    const INITIAL_KEATON_ARCHIVE = [
+      {
+        id: 'bk-vaud-1',
+        title: 'The Three Keatons Vaudeville Troupe',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/The_Three_Keatons_1901.jpg/640px-The_Three_Keatons_1901.jpg',
+        era: '1895–1917',
+        subcategory: 'Vaudeville',
+        film: 'Vaudeville Tour (c. 1901)',
+        year: '1901',
+        tags: ['vaudeville', 'childhood', 'rare', 'family'],
+        desc: 'Little Buster Keaton with his parents Joe and Myra Keaton. Young Buster was billed as "The Human Mop".',
+        likes: 342,
+        isLiked: false
+      },
+      {
+        id: 'bk-musk-1',
+        title: 'Actors\' Colony at Bluffton, Muskegon',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Buster_Keaton_smiling.jpg/640px-Buster_Keaton_smiling.jpg',
+        era: '1895–1917',
+        subcategory: 'Muskegon',
+        film: 'Lake Michigan Summer Retreat',
+        year: '1910',
+        tags: ['muskegon', 'rare', 'portraits'],
+        desc: 'Summering at the Actors’ Colony in Muskegon, Michigan, playing baseball and swimming with lifelong friends.',
+        likes: 418,
+        isLiked: true
+      },
+      {
+        id: 'bk-child-1',
+        title: 'Early Studio Portrait as Little Buster',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Buster_Keaton_1920.jpg/640px-Buster_Keaton_1920.jpg',
+        era: '1895–1917',
+        subcategory: 'Childhood',
+        film: 'Early Theatrical Portrait',
+        year: '1905',
+        tags: ['childhood', 'portraits', 'vintage'],
+        desc: 'Sporting a formal suit and that unmistakable focused deadpan stare even as a youngster.',
+        likes: 290,
+        isLiked: false
+      },
+      {
+        id: 'bk-arb-1',
+        title: 'The Butcher Boy - Buster Meets the Screen',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/The_High_Sign_Keaton.jpg/640px-The_High_Sign_Keaton.jpg',
+        era: '1917–1920',
+        subcategory: 'Arbuckle Shorts',
+        film: 'The Butcher Boy (1917)',
+        year: '1917',
+        tags: ['arbuckle', 'comique', 'vintage'],
+        desc: 'Buster’s film debut with Roscoe "Fatty" Arbuckle. He bought a broom and molasses in his very first cinema gag.',
+        likes: 388,
+        isLiked: false
+      },
+      {
+        id: 'bk-fam-1',
+        title: 'Keaton & Natalie Talmadge Courting',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Buster_Keaton_1920s_portrait.jpg/640px-Buster_Keaton_1920s_portrait.jpg',
+        era: '1917–1920',
+        subcategory: 'Family',
+        film: 'Comique Studios',
+        year: '1920',
+        tags: ['family', 'vintage', 'portraits'],
+        desc: 'Buster during the era he met Natalie Talmadge at the Comique lot in New York before their move to Hollywood.',
+        likes: 240,
+        isLiked: false
+      },
+      {
+        id: 'bk-frn-1',
+        title: 'Laughs with Roscoe Arbuckle & Al St. John',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Keaton_directing_1920s.jpg/640px-Keaton_directing_1920s.jpg',
+        era: '1917–1920',
+        subcategory: 'Friends',
+        film: 'Comique Short Subjects',
+        year: '1919',
+        tags: ['friends', 'bts', 'rare'],
+        desc: 'Buster, Fatty, and Al St. John on set sharing gags and inventing physical mechanics for short subjects.',
+        likes: 470,
+        isLiked: true
+      },
+      {
+        id: 'bk-sil-1',
+        title: 'The General Cowcatcher Stunt',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Buster_Keaton_in_The_General.jpg/640px-Buster_Keaton_in_The_General.jpg',
+        era: '1920–1928',
+        subcategory: 'Silent Films',
+        film: 'The General (1926)',
+        year: '1926',
+        tags: ['thegeneral', 'silentfilm', 'stunts', 'porkpie'],
+        desc: 'Sitting boldly on the cowcatcher of locomotive Texas, clearing track obstacles in real motion.',
+        likes: 815,
+        isLiked: true
+      },
+      {
+        id: 'bk-sil-2',
+        title: 'Steamboat Bill, Jr. House Facade Fall',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Keaton_Steamboat_Bill_Jr._house_falling.jpg/640px-Keaton_Steamboat_Bill_Jr._house_falling.jpg',
+        era: '1920–1928',
+        subcategory: 'Silent Films',
+        film: 'Steamboat Bill, Jr. (1928)',
+        year: '1928',
+        tags: ['steamboatbill', 'stunts', 'silentfilm'],
+        desc: 'A 2-ton wall falls around him in a hurricane, passing directly through the second-story attic window clearance.',
+        likes: 934,
+        isLiked: true
+      },
+      {
+        id: 'bk-sil-3',
+        title: 'Sherlock Jr. Motorcycle Handlebar Ride',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Sherlock_Jr._motorcycle.jpg/640px-Sherlock_Jr._motorcycle.jpg',
+        era: '1920–1928',
+        subcategory: 'Silent Films',
+        film: 'Sherlock Jr. (1924)',
+        year: '1924',
+        tags: ['sherlockjr', 'stunts', 'porkpie'],
+        desc: 'Perched on the handlebars without knowing the driver has fallen off, zooming across obstacles.',
+        likes: 620,
+        isLiked: false
+      },
+      {
+        id: 'bk-sil-4',
+        title: 'Seven Chances Mountain Boulder Avalanche',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Seven_Chances_%281925%29_-_rocks.png/640px-Seven_Chances_%281925%29_-_rocks.png',
+        era: '1920–1928',
+        subcategory: 'Silent Films',
+        film: 'Seven Chances (1925)',
+        year: '1925',
+        tags: ['stunts', 'silentfilm'],
+        desc: 'Fleeing hundreds of brides and tumbling papier-mâché boulders down the Southern California ridges.',
+        likes: 512,
+        isLiked: false
+      },
+      {
+        id: 'bk-sil-fam',
+        title: 'Keaton with Sons James & Robert at Italian Villa',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Sherlock_Jr_Keaton.jpg/640px-Sherlock_Jr_Keaton.jpg',
+        era: '1920–1928',
+        subcategory: 'Family',
+        film: 'Beverly Hills Estate',
+        year: '1925',
+        tags: ['family', 'rare', 'vintage'],
+        desc: 'Buster at his legendary Beverly Hills home with his young boys playing by the estate water features.',
+        likes: 310,
+        isLiked: false
+      },
+      {
+        id: 'bk-sil-frn',
+        title: 'Studio Baseball Game with Crew',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Buster_Keaton_in_The_General_1926.jpg/640px-Buster_Keaton_in_The_General_1926.jpg',
+        era: '1920–1928',
+        subcategory: 'Friends',
+        film: 'Keaton Studios Lot',
+        year: '1925',
+        tags: ['friends', 'bts'],
+        desc: 'Buster halted production anytime baseball fever hit, challenging rival studio crews to nine innings.',
+        likes: 428,
+        isLiked: false
+      },
+      {
+        id: 'bk-mgm-1',
+        title: 'The Cameraman Newsreel Rush',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/The_Cameraman_%281928%29_-_1.jpg/640px-The_Cameraman_%281928%29_-_1.jpg',
+        era: '1929–1933',
+        subcategory: 'MGM Early Talkies',
+        film: 'The Cameraman / Spite Marriage',
+        year: '1929',
+        tags: ['cameraman', 'mgm', 'silentfilm'],
+        desc: 'Keaton’s early MGM transition phase showcasing incredible physical control amidst New York crowds.',
+        likes: 345,
+        isLiked: false
+      },
+      {
+        id: 'bk-mgm-bts',
+        title: 'Free and Easy Backstage Studio Lot',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Steamboat_Bill_Jr._hurricane.jpg/640px-Steamboat_Bill_Jr._hurricane.jpg',
+        era: '1929–1933',
+        subcategory: 'Behind the Scenes',
+        film: 'Free and Easy (1930)',
+        year: '1930',
+        tags: ['bts', 'mgm', 'talkies'],
+        desc: 'Keaton adapting his silent pantomime mechanics to large early sound stage microphones.',
+        likes: 215,
+        isLiked: false
+      },
+      {
+        id: 'bk-edu-1',
+        title: 'Educational Pictures Shorts Stunts',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Battling_Butler_title_card.jpg/640px-Battling_Butler_title_card.jpg',
+        era: '1929–1933',
+        subcategory: 'Educational Pictures',
+        film: 'The Gold Ghost (1934)',
+        year: '1934',
+        tags: ['educational', 'shorts', 'stunts'],
+        desc: 'Buster regaining physical improvisation in lively two-reel independent comedy productions.',
+        likes: 290,
+        isLiked: false
+      },
+      {
+        id: 'bk-col-1',
+        title: 'Mooching Through Georgia Columbia Short',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Buster_Keaton_1920s_portrait.jpg/640px-Buster_Keaton_1920s_portrait.jpg',
+        era: '1933–1941',
+        subcategory: 'Columbia Shorts',
+        film: 'Mooching Through Georgia (1939)',
+        year: '1939',
+        tags: ['columbia', 'shorts'],
+        desc: 'Revisiting civil war gags with Jules White at the Columbia two-reel division in Hollywood.',
+        likes: 198,
+        isLiked: false
+      },
+      {
+        id: 'bk-gag-1',
+        title: 'Writing Gags for The Marx Brothers & Red Skelton',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Keaton_directing_1920s.jpg/640px-Keaton_directing_1920s.jpg',
+        era: '1933–1941',
+        subcategory: 'Gag Writing & Cameos',
+        film: 'MGM Writers Building',
+        year: '1940',
+        tags: ['bts', 'gagwriting'],
+        desc: 'Keaton worked as MGM’s secret comedy doctor, creating the legendary stateroom gag in A Night at the Opera.',
+        likes: 420,
+        isLiked: true
+      },
+      {
+        id: 'bk-port-1',
+        title: '1930s Dramatic Character Portrait',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Buster_Keaton_1920.jpg/640px-Buster_Keaton_1920.jpg',
+        era: '1933–1941',
+        subcategory: 'Portraits',
+        film: 'Studio Portrait',
+        year: '1938',
+        tags: ['portraits', 'vintage'],
+        desc: 'Intense, soulful portrait showing the ageless dignity of the Great Stone Face.',
+        likes: 310,
+        isLiked: false
+      },
+      {
+        id: 'bk-circ-1',
+        title: 'Cirque Medrano Paris Clown Engagement',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Buster_Keaton_smiling.jpg/640px-Buster_Keaton_smiling.jpg',
+        era: '1941–1955',
+        subcategory: 'Circus Medrano',
+        film: 'Cirque Medrano (Paris, 1952)',
+        year: '1952',
+        tags: ['circus', 'paris', 'rare'],
+        desc: 'Buster and his beloved wife Eleanor performing acrobatic pantomime clown routines in the Parisian ring to thunderous ovations.',
+        likes: 540,
+        isLiked: true
+      },
+      {
+        id: 'bk-tv-1',
+        title: 'The Buster Keaton Show KTTV Live Broadcast',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Buster_Keaton_1920s_portrait.jpg/640px-Buster_Keaton_1920s_portrait.jpg',
+        era: '1941–1955',
+        subcategory: 'Television',
+        film: 'The Buster Keaton Show (1950)',
+        year: '1950',
+        tags: ['television', '50s'],
+        desc: 'Pioneering live television slapstick, performing whole acrobatic sequences in one uninterrupted live take.',
+        likes: 275,
+        isLiked: false
+      },
+      {
+        id: 'bk-theat-1',
+        title: 'Summer Stock & Limelight with Chaplin',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Sherlock_Jr_Keaton.jpg/640px-Sherlock_Jr_Keaton.jpg',
+        era: '1941–1955',
+        subcategory: 'Theater & Variety',
+        film: 'Limelight (1952)',
+        year: '1952',
+        tags: ['chaplin', 'limelight', 'theater'],
+        desc: 'Sharing the screen with Charlie Chaplin for their historic violin and piano music hall duet.',
+        likes: 680,
+        isLiked: true
+      },
+      {
+        id: 'bk-ven-1',
+        title: 'Venice Film Festival Standing Ovation',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Buster_Keaton_in_The_General.jpg/640px-Buster_Keaton_in_The_General.jpg',
+        era: '1955–1966',
+        subcategory: 'Venice Film Festival',
+        film: 'Venice Biennale Film Festival (1965)',
+        year: '1965',
+        tags: ['venice', 'tributes', 'rare'],
+        desc: 'A ten-minute standing ovation moved Buster to tears as the world officially recognized his cinematic genius.',
+        likes: 960,
+        isLiked: true
+      },
+      {
+        id: 'bk-late-1',
+        title: 'Samuel Beckett\'s Film & Late Screen Gems',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Keaton_Steamboat_Bill_Jr._house_falling.jpg/640px-Keaton_Steamboat_Bill_Jr._house_falling.jpg',
+        era: '1955–1966',
+        subcategory: 'Late Film Roles',
+        film: 'Film (1965) / A Funny Thing Happened',
+        year: '1965',
+        tags: ['beckett', 'latefilm', 'cinema'],
+        desc: 'Starring in avant-garde writer Samuel Beckett\'s silent art piece and racing in Richard Lester’s Forum farce.',
+        likes: 340,
+        isLiked: false
+      },
+      {
+        id: 'bk-trib-1',
+        title: 'Honorary Academy Award Presentation',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Buster_Keaton_1920.jpg/640px-Buster_Keaton_1920.jpg',
+        era: '1955–1966',
+        subcategory: 'Tributes & Festivals',
+        film: '32nd Academy Awards (1960)',
+        year: '1960',
+        tags: ['oscars', 'tributes', 'portraits'],
+        desc: 'Honored with a special Oscar statuette for his unique talents and immortal silent screen comedies.',
+        likes: 580,
+        isLiked: false
+      }
+    ];
+
+    let photos = [];
+    let selectedEra = null;
+    let selectedSubcategory = null;
+    let selectedTag = null;
+    let currentSearchTerm = '';
+    let filterFavoritesOnly = false;
+    let currentLightboxPhotoId = null;
+    let isNitrateMode = false;
+    let stagedUploadUrl = '';
+    let isUploading = false;
+    let photoToDeleteId = null;
+
+    function playPianoChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const now = ctx.currentTime;
+        const notes = [261.63, 329.63, 392.00, 523.25];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+          gain.gain.setValueAtTime(0.12, now + idx * 0.06);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.9);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + idx * 0.06);
+          osc.stop(now + idx * 0.06 + 0.95);
+        });
+      } catch (e) {}
+    }
+
+    function toggleNitrateMode() {
+      isNitrateMode = !isNitrateMode;
+      const badge = document.getElementById('nitrateModeBadge');
+      if (isNitrateMode) {
+        document.body.classList.add('nitrate-mode');
+        badge.classList.remove('hidden');
+        playPianoChime();
+        showToast('📽️ Stone Face Mode: 1920s Nitrate Film Enabled!', '🎩');
+      } else {
+        document.body.classList.remove('nitrate-mode');
+        badge.classList.add('hidden');
+        showToast('🌸 Pastel Archive Restored', '✨');
+      }
+    }
+
+    function initData() {
+      try {
+        const stored = localStorage.getItem('friendless_ghoul_v8');
+        if (stored) {
+          photos = JSON.parse(stored);
+        } else {
+          photos = JSON.parse(JSON.stringify(INITIAL_KEATON_ARCHIVE));
+        }
+      } catch (e) {
+        photos = JSON.parse(JSON.stringify(INITIAL_KEATON_ARCHIVE));
+      }
+    }
+
+    function persistData() {
+      try {
+        localStorage.setItem('friendless_ghoul_v8', JSON.stringify(photos));
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
+    function showToast(message, icon = '🎩') {
+      const toast = document.getElementById('toastNotification');
+      const toastIcon = document.getElementById('toastIcon');
+      const toastMsg = document.getElementById('toastMessage');
+      toastIcon.textContent = icon;
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2600);
+    }
+
+    // Direct Cloudinary Upload
+    async function uploadToCloudinary(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_PRESET);
+
+      const endpoint = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+      
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        let errDesc = 'Cloudinary rejected upload';
+        try {
+          const errData = await response.json();
+          if (errData.error && errData.error.message) {
+            errDesc = errData.error.message;
+          }
+        } catch (e) {}
+        throw new Error(errDesc);
+      }
+
+      const data = await response.json();
+      return data.secure_url;
+    }
+
+    function renderSidebarTree() {
+      const container = document.getElementById('erasAccordionContainer');
+      container.innerHTML = '';
+
+      CHRONOLOGY_TREE.forEach(node => {
+        const isOpen = selectedEra === node.era;
+        const eraCount = photos.filter(p => p.era === node.era).length;
+
+        const eraItem = document.createElement('div');
+        eraItem.className = 'rounded-2xl border border-blush-100 overflow-hidden bg-white/70 transition-all';
+
+        eraItem.innerHTML = `
+          <div class="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-blush-50/70 transition-colors ${isOpen ? 'bg-blush-50/60 font-bold' : ''}">
+            <button class="era-filter-btn flex-1 text-left flex items-center justify-between pr-2 text-xs font-bold text-slate-700 hover:text-pink-600 cursor-pointer">
+              <span class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full ${isOpen ? 'bg-pink-500 ring-2 ring-pink-200' : 'bg-slate-300'}"></span>
+                <span>${node.era}</span>
+              </span>
+              <span class="text-[10px] text-slate-400 font-semibold">(${eraCount})</span>
+            </button>
+            <button class="accordion-toggle-btn p-1 text-slate-400 hover:text-pink-500 transition-transform ${isOpen ? 'rotate-180' : ''} cursor-pointer" title="Toggle subcategories">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="accordion-content ${isOpen ? 'open' : ''} px-2 pb-2 pt-1 border-t border-blush-50 bg-pink-50/20 space-y-1">
+            ${node.subcategories.map(sub => {
+              const subCount = photos.filter(p => p.era === node.era && p.subcategory.toLowerCase() === sub.toLowerCase()).length;
+              const isSubSelected = (selectedEra === node.era && selectedSubcategory && selectedSubcategory.toLowerCase() === sub.toLowerCase());
+
+              return `
+                <button 
+                  data-era="${node.era}"
+                  data-sub="${sub}"
+                  class="subcategory-link w-full text-left px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all flex items-center justify-between cursor-pointer ${
+                    isSubSelected 
+                      ? 'bg-gradient-to-r from-pink-400 to-blush-500 text-white shadow-xs font-bold' 
+                      : 'text-slate-600 hover:bg-blush-100/60 hover:text-pink-700'
+                  }"
+                >
+                  <span class="flex items-center gap-1.5">
+                    <span class="text-[9px] ${isSubSelected ? 'text-white' : 'text-blush-400'}">↳</span>
+                    <span>${sub}</span>
+                  </span>
+                  <span class="text-[9px] opacity-80">(${subCount})</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        `;
+
+        eraItem.querySelector('.era-filter-btn').onclick = () => {
+          navigateToFilter(node.era, null, null);
+        };
+
+        eraItem.querySelector('.accordion-toggle-btn').onclick = (e) => {
+          e.stopPropagation();
+          const content = eraItem.querySelector('.accordion-content');
+          const isCurrentlyOpen = content.classList.contains('open');
+          if (isCurrentlyOpen) {
+            content.classList.remove('open');
+            eraItem.querySelector('.accordion-toggle-btn').classList.remove('rotate-180');
+          } else {
+            content.classList.add('open');
+            eraItem.querySelector('.accordion-toggle-btn').classList.add('rotate-180');
+          }
+        };
+
+        eraItem.querySelectorAll('.subcategory-link').forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            const era = btn.getAttribute('data-era');
+            const sub = btn.getAttribute('data-sub');
+            navigateToFilter(era, sub, null);
+            closeMobileMenu();
+          };
+        });
+
+        container.appendChild(eraItem);
+      });
+
+      renderQuickTags();
+    }
+
+    function renderQuickTags() {
+      const container = document.getElementById('quickTagsContainer');
+      container.innerHTML = '';
+      
+      const tagCounts = {};
+      photos.forEach(p => {
+        p.tags.forEach(t => {
+          const clean = t.toLowerCase().trim();
+          tagCounts[clean] = (tagCounts[clean] || 0) + 1;
+        });
+      });
+
+      const topTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]).slice(0, 10);
+
+      topTags.forEach(tag => {
+        const isCurrent = (selectedTag && selectedTag.toLowerCase() === tag);
+        const pill = document.createElement('button');
+        pill.className = `text-[10px] font-bold px-2 py-0.5 rounded-lg border transition-all cursor-pointer ${
+          isCurrent 
+            ? 'bg-sky-400 text-white border-sky-400' 
+            : 'bg-white text-slate-600 border-blush-200 hover:bg-blush-50'
+        }`;
+        pill.textContent = `#${tag}`;
+        pill.onclick = () => {
+          navigateToFilter(null, null, tag);
+          closeMobileMenu();
+        };
+        container.appendChild(pill);
+      });
+    }
+
+    function getFilteredPhotos() {
+      let list = [...photos];
+
+      if (selectedEra) {
+        list = list.filter(p => p.era === selectedEra);
+      }
+      if (selectedSubcategory) {
+        list = list.filter(p => p.subcategory && p.subcategory.toLowerCase() === selectedSubcategory.toLowerCase());
+      }
+      if (selectedTag) {
+        list = list.filter(p => p.tags.some(t => t.toLowerCase() === selectedTag.toLowerCase()));
+      }
+      if (filterFavoritesOnly) {
+        list = list.filter(p => p.isLiked);
+      }
+      if (currentSearchTerm.trim()) {
+        const q = currentSearchTerm.toLowerCase().trim();
+        list = list.filter(p => 
+          p.title.toLowerCase().includes(q) ||
+          (p.desc && p.desc.toLowerCase().includes(q)) ||
+          (p.film && p.film.toLowerCase().includes(q)) ||
+          p.era.toLowerCase().includes(q) ||
+          p.subcategory.toLowerCase().includes(q) ||
+          p.tags.some(t => t.toLowerCase().includes(q))
+        );
+      }
+
+      return list;
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById('photosGrid');
+      const empty = document.getElementById('emptyState');
+      const banner = document.getElementById('filterBanner');
+      const breadcrumb = document.getElementById('filterBreadcrumb');
+      const heading = document.getElementById('filterHeading');
+      const countBadge = document.getElementById('filteredCountBadge');
+
+      const items = getFilteredPhotos();
+      grid.innerHTML = '';
+
+      document.getElementById('sidebarTotalBadge').textContent = photos.length;
+      document.getElementById('favCountBadge').textContent = photos.filter(p => p.isLiked).length;
+
+      const isFiltered = selectedEra || selectedSubcategory || selectedTag || filterFavoritesOnly || currentSearchTerm;
+      if (isFiltered) {
+        banner.classList.remove('hidden');
+
+        let breadcrumbText = 'All Photos';
+        let headingText = 'Archive Collection';
+
+        if (filterFavoritesOnly) {
+          breadcrumbText = 'Favorites';
+          headingText = 'Loved Buster Keaton Stills ❤️';
+        } else if (selectedEra && selectedSubcategory) {
+          breadcrumbText = `${selectedEra} › ${selectedSubcategory}`;
+          headingText = `${selectedSubcategory} Archive (${selectedEra})`;
+        } else if (selectedEra) {
+          breadcrumbText = `${selectedEra}`;
+          headingText = `Chronology: ${selectedEra} Era`;
+        } else if (selectedTag) {
+          breadcrumbText = `Tag Archive`;
+          headingText = `#${selectedTag} Buster Stills`;
+        } else if (currentSearchTerm) {
+          breadcrumbText = `Search Query`;
+          headingText = `Results for "${currentSearchTerm}"`;
+        }
+
+        breadcrumb.textContent = breadcrumbText;
+        heading.textContent = headingText;
+        countBadge.textContent = `${items.length} photo${items.length === 1 ? '' : 's'}`;
+      } else {
+        banner.classList.add('hidden');
+      }
+
+      if (items.length === 0) {
+        empty.classList.remove('hidden');
+        grid.classList.add('hidden');
+      } else {
+        empty.classList.add('hidden');
+        grid.classList.remove('hidden');
+      }
+
+      items.forEach(photo => {
+        const card = document.createElement('article');
+        card.className = 'glass-panel rounded-2xl overflow-hidden photo-card flex flex-col group border border-blush-200/90 relative';
+
+        card.innerHTML = `
+          <div class="relative w-full aspect-[4/5] bg-slate-900 overflow-hidden cursor-pointer img-trigger">
+            <img 
+              src="${photo.url}" 
+              alt="${photo.title}" 
+              loading="lazy"
+              onerror="this.src='https://placehold.co/400x500/ffe4ed/ec4899?text=Buster+Keaton'"
+              class="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
+            />
+
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end p-2">
+              <span class="text-white text-[10px] font-bold flex items-center gap-1">
+                <span>🔍 Inspect</span>
+              </span>
+            </div>
+
+            <span class="absolute top-1.5 left-1.5 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-white/90 backdrop-blur text-pink-600 border border-pink-100 shadow-xs">
+              ${photo.era}
+            </span>
+
+            <button 
+              data-id="${photo.id}"
+              class="like-btn absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/90 backdrop-blur shadow flex items-center justify-center transition-transform hover:scale-110 active:scale-90 cursor-pointer"
+              title="Love still"
+            >
+              <svg class="w-3.5 h-3.5 ${photo.isLiked ? 'fill-pink-500 text-pink-500' : 'text-slate-400 fill-none'} transition-colors" viewBox="0 0 24 24" stroke="currentColor" stroke-width="${photo.isLiked ? '0' : '2'}">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="p-2 sm:p-2.5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-[10px] text-slate-400 font-semibold mb-0.5">
+                <span class="truncate max-w-[70%] font-bold text-slate-500">${photo.subcategory}</span>
+                <span class="text-pink-500 text-[10px] font-bold">♥ ${photo.likes}</span>
+              </div>
+
+              <h4 class="font-cute font-bold text-xs text-slate-800 line-clamp-1 group-hover:text-pink-600 transition-colors cursor-pointer title-trigger">
+                ${photo.title}
+              </h4>
+              <p class="text-[10px] text-slate-400 line-clamp-1">${photo.film || photo.year}</p>
+            </div>
+
+            <div class="flex flex-wrap gap-1 pt-1.5 border-t border-pink-50 mt-1.5">
+              ${photo.tags.slice(0, 2).map(tag => `
+                <button 
+                  data-tag="${tag}"
+                  class="card-tag-btn text-[9px] font-bold px-1.5 py-0.5 rounded bg-blush-50 text-blush-600 hover:bg-blush-100 transition-colors cursor-pointer"
+                >
+                  #${tag}
+                </button>
+              `).join('')}
+              ${photo.tags.length > 2 ? `<span class="text-[9px] text-slate-400 self-center">+${photo.tags.length - 2}</span>` : ''}
+            </div>
+          </div>
+        `;
+
+        card.querySelector('.img-trigger').onclick = () => openLightbox(photo.id);
+        card.querySelector('.title-trigger').onclick = () => openLightbox(photo.id);
+
+        card.querySelector('.like-btn').onclick = (e) => {
+          e.stopPropagation();
+          toggleLike(photo.id);
+        };
+
+        card.querySelectorAll('.card-tag-btn').forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            navigateToFilter(null, null, btn.getAttribute('data-tag'));
+          };
+        });
+
+        grid.appendChild(card);
+      });
+
+      renderSidebarTree();
+    }
+
+    function toggleLike(photoId) {
+      const p = photos.find(item => item.id === photoId);
+      if (!p) return;
+
+      p.isLiked = !p.isLiked;
+      if (p.isLiked) {
+        p.likes += 1;
+        showToast(`Loved "${p.title}"!`, '💖');
+      } else {
+        p.likes = Math.max(0, p.likes - 1);
+        showToast('Removed from favorites', '🤍');
+      }
+
+      persistData();
+      renderGallery();
+
+      if (currentLightboxPhotoId === photoId) {
+        updateLightboxLikeButton(p);
+      }
+    }
+
+    function promptDeleteStill(photoId) {
+      const p = photos.find(item => item.id === photoId);
+      if (!p) return;
+
+      photoToDeleteId = photoId;
+      document.getElementById('deleteTargetTitle').textContent = p.title;
+
+      const modal = document.getElementById('deleteConfirmModal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+    }
+
+    function closeDeleteConfirmModal() {
+      const modal = document.getElementById('deleteConfirmModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100');
+      photoToDeleteId = null;
+    }
+
+    function executeDeleteStill() {
+      if (!photoToDeleteId) return;
+
+      const targetId = photoToDeleteId;
+      const targetPhoto = photos.find(p => p.id === targetId);
+      const title = targetPhoto ? targetPhoto.title : 'Photo';
+
+      photos = photos.filter(p => p.id !== targetId);
+      persistData();
+
+      closeDeleteConfirmModal();
+      closeLightbox();
+      renderGallery();
+
+      showToast(`Removed "${title}" from archive`, '🗑️');
+    }
+
+    function navigateToFilter(era, subcategory, tag) {
+      filterFavoritesOnly = false;
+      selectedEra = era;
+      selectedSubcategory = subcategory;
+      selectedTag = tag;
+      currentSearchTerm = '';
+      document.getElementById('searchInput').value = '';
+      const mobileSearch = document.getElementById('searchInputMobile');
+      if (mobileSearch) mobileSearch.value = '';
+
+      if (era && subcategory) {
+        window.location.hash = `era/${encodeURIComponent(era)}/sub/${encodeURIComponent(subcategory)}`;
+      } else if (era) {
+        window.location.hash = `era/${encodeURIComponent(era)}`;
+      } else if (tag) {
+        window.location.hash = `tag/${encodeURIComponent(tag)}`;
+      } else {
+        window.location.hash = 'all';
+      }
+
+      renderGallery();
+    }
+
+    function handleHashChange() {
+      const hash = window.location.hash.replace(/^#/, '');
+
+      if (hash.startsWith('era/')) {
+        const parts = hash.split('/');
+        selectedEra = decodeURIComponent(parts[1] || '');
+        if (parts[2] === 'sub' && parts[3]) {
+          selectedSubcategory = decodeURIComponent(parts[3]);
+        } else {
+          selectedSubcategory = null;
+        }
+        selectedTag = null;
+        filterFavoritesOnly = false;
+      } else if (hash.startsWith('tag/')) {
+        selectedTag = decodeURIComponent(hash.substring(4));
+        selectedEra = null;
+        selectedSubcategory = null;
+        filterFavoritesOnly = false;
+      } else if (hash.startsWith('still/')) {
+        const stillId = decodeURIComponent(hash.substring(6));
+        openLightbox(stillId, false);
+      } else if (hash === 'favorites') {
+        filterFavoritesOnly = true;
+        selectedEra = null;
+        selectedSubcategory = null;
+        selectedTag = null;
+      } else {
+        selectedEra = null;
+        selectedSubcategory = null;
+        selectedTag = null;
+        filterFavoritesOnly = false;
+      }
+
+      renderGallery();
+    }
+
+    function openLightbox(photoId, updateHash = true) {
+      const photo = photos.find(p => p.id === photoId);
+      if (!photo) return;
+
+      currentLightboxPhotoId = photoId;
+      document.getElementById('lightboxImage').src = photo.url;
+      document.getElementById('lightboxTitle').textContent = photo.title;
+      document.getElementById('lightboxYear').textContent = `${photo.film || 'Silent Still'} • ${photo.year}`;
+      document.getElementById('lightboxDescription').textContent = photo.desc || 'Rare archival still of Buster Keaton.';
+      
+      document.getElementById('lightboxEraBadge').textContent = photo.era;
+      document.getElementById('lightboxSubcategoryBadge').textContent = photo.subcategory;
+
+      const tagsContainer = document.getElementById('lightboxTags');
+      tagsContainer.innerHTML = '';
+      photo.tags.forEach(t => {
+        const pill = document.createElement('button');
+        pill.className = 'text-xs font-bold px-2 py-0.5 rounded-lg bg-pink-50 text-pink-600 hover:bg-pink-100 border border-pink-200 transition-colors cursor-pointer';
+        pill.textContent = `#${t}`;
+        pill.onclick = () => {
+          closeLightbox();
+          navigateToFilter(null, null, t);
+        };
+        tagsContainer.appendChild(pill);
+      });
+
+      updateLightboxLikeButton(photo);
+
+      const modal = document.getElementById('lightboxModal');
+      const card = document.getElementById('lightboxCard');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      card.classList.remove('scale-95');
+      card.classList.add('scale-100');
+      document.body.style.overflow = 'hidden';
+
+      if (updateHash) {
+        window.location.hash = `still/${photo.id}`;
+      }
+    }
+
+    function updateLightboxLikeButton(photo) {
+      const btn = document.getElementById('lightboxHeartBtn');
+      const label = document.getElementById('lightboxHeartLabel');
+      label.textContent = `${photo.isLiked ? 'Loved' : 'Love Still'} (${photo.likes})`;
+      if (photo.isLiked) {
+        btn.classList.add('bg-blush-500', 'text-white', 'border-blush-500');
+        btn.classList.remove('text-blush-500');
+      } else {
+        btn.classList.remove('bg-blush-500', 'text-white', 'border-blush-500');
+        btn.classList.add('text-blush-500');
+      }
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightboxModal');
+      const card = document.getElementById('lightboxCard');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100');
+      card.classList.add('scale-95');
+      card.classList.remove('scale-100');
+      document.body.style.overflow = '';
+      currentLightboxPhotoId = null;
+
+      if (selectedEra && selectedSubcategory) {
+        window.location.hash = `era/${selectedEra}/sub/${selectedSubcategory}`;
+      } else if (selectedEra) {
+        window.location.hash = `era/${selectedEra}`;
+      } else if (selectedTag) {
+        window.location.hash = `tag/${selectedTag}`;
+      } else if (filterFavoritesOnly) {
+        window.location.hash = 'favorites';
+      } else {
+        window.location.hash = 'all';
+      }
+    }
+
+    function stepLightbox(delta) {
+      const items = getFilteredPhotos();
+      if (items.length === 0) return;
+
+      let idx = items.findIndex(p => p.id === currentLightboxPhotoId);
+      if (idx === -1) idx = 0;
+
+      idx = (idx + delta + items.length) % items.length;
+      openLightbox(items[idx].id);
+    }
+
+    function populateSubcategoryDropdown(era) {
+      const select = document.getElementById('newSubcategory');
+      select.innerHTML = '';
+      const node = CHRONOLOGY_TREE.find(n => n.era === era);
+      if (node) {
+        node.subcategories.forEach(sub => {
+          const opt = document.createElement('option');
+          opt.value = sub;
+          opt.textContent = sub;
+          select.appendChild(opt);
+        });
+      }
+    }
+
+    function openAddModal() {
+      const modal = document.getElementById('addPhotoModal');
+      populateSubcategoryDropdown(document.getElementById('newEra').value);
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAddModal() {
+      const modal = document.getElementById('addPhotoModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100');
+      document.body.style.overflow = '';
+      document.getElementById('addPhotoForm').reset();
+      clearUploadedFile();
+    }
+
+    function openMobileMenu() {
+      const sidebar = document.getElementById('sidebarMenu');
+      sidebar.classList.remove('max-lg:-translate-x-full');
+      sidebar.classList.add('max-lg:translate-x-0');
+      document.getElementById('mobileBackdrop').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      const sidebar = document.getElementById('sidebarMenu');
+      sidebar.classList.remove('max-lg:translate-x-0');
+      sidebar.classList.add('max-lg:-translate-x-full');
+      document.getElementById('mobileBackdrop').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Direct File Upload to Cloudinary Handler
+    async function handleFileSelected(file) {
+      if (!file || !file.type.startsWith('image/')) {
+        showToast('Please select a valid image file', '⚠️');
+        return;
+      }
+
+      isUploading = true;
+      const statusBox = document.getElementById('uploadStatusBox');
+      const spinner = document.getElementById('uploadSpinner');
+      const previewImg = document.getElementById('uploadPreviewImg');
+      const statusText = document.getElementById('uploadStatusText');
+      const subStatus = document.getElementById('uploadSubStatus');
+      const clearBtn = document.getElementById('clearUploadBtn');
+      const submitBtn = document.getElementById('submitStillBtn');
+
+      statusBox.classList.remove('hidden');
+      statusBox.className = 'mt-2 p-2.5 rounded-xl border bg-pink-50/50 border-pink-200 flex items-center gap-3';
+      spinner.classList.remove('hidden');
+      previewImg.classList.add('hidden');
+      clearBtn.classList.add('hidden');
+      statusText.textContent = `Uploading to Cloudinary...`;
+      subStatus.textContent = file.name;
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+      try {
+        const cloudUrl = await uploadToCloudinary(file);
+        stagedUploadUrl = cloudUrl;
+
+        spinner.classList.add('hidden');
+        previewImg.src = cloudUrl;
+        previewImg.classList.remove('hidden');
+        clearBtn.classList.remove('hidden');
+
+        statusBox.className = 'mt-2 p-2.5 rounded-xl border bg-emerald-50 border-emerald-200 flex items-center gap-3';
+        statusText.textContent = 'Uploaded to Cloudinary CDN!';
+        subStatus.textContent = 'Ready to add to archive';
+        showToast('Uploaded to Cloudinary! ☁️', '✅');
+      } catch (err) {
+        console.error(err);
+        spinner.classList.add('hidden');
+        clearBtn.classList.remove('hidden');
+        statusBox.className = 'mt-2 p-2.5 rounded-xl border bg-rose-50 border-rose-200 flex items-center gap-3';
+        statusText.textContent = 'Upload Failed';
+        subStatus.textContent = err.message || 'Check Cloudinary settings';
+        showToast(`Error: ${err.message}`, '⚠️');
+      } finally {
+        isUploading = false;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+    }
+
+    function clearUploadedFile() {
+      stagedUploadUrl = '';
+      document.getElementById('deviceFileInput').value = '';
+      document.getElementById('uploadStatusBox').classList.add('hidden');
+      document.getElementById('uploadPreviewImg').src = '';
+    }
+
+    function bindEventListeners() {
+      document.getElementById('porkpieModeBtn').onclick = toggleNitrateMode;
+
+      // Modal Top Tab Navigation: Add vs Sync
+      const tabAdd = document.getElementById('modalTabAdd');
+      const tabSync = document.getElementById('modalTabSync');
+      const addSection = document.getElementById('addPhotoSection');
+      const syncSection = document.getElementById('syncBackupSection');
+
+      tabAdd.onclick = () => {
+        tabAdd.classList.add('bg-white', 'text-pink-600', 'shadow-xs');
+        tabAdd.classList.remove('text-slate-500');
+        tabSync.classList.remove('bg-white', 'text-pink-600', 'shadow-xs');
+        tabSync.classList.add('text-slate-500');
+        addSection.classList.remove('hidden');
+        syncSection.classList.add('hidden');
+      };
+
+      tabSync.onclick = () => {
+        tabSync.classList.add('bg-white', 'text-pink-600', 'shadow-xs');
+        tabSync.classList.remove('text-slate-500');
+        tabAdd.classList.remove('bg-white', 'text-pink-600', 'shadow-xs');
+        tabAdd.classList.add('text-slate-500');
+        syncSection.classList.remove('hidden');
+        addSection.classList.add('hidden');
+      };
+
+      // Photo Source Tabs: Device vs URL
+      const tabDevice = document.getElementById('tabUploadDevice');
+      const tabUrl = document.getElementById('tabUploadUrl');
+      const deviceSec = document.getElementById('deviceUploadSection');
+      const urlSec = document.getElementById('urlUploadSection');
+
+      tabDevice.onclick = () => {
+        tabDevice.classList.add('bg-white', 'shadow-xs', 'text-pink-600');
+        tabDevice.classList.remove('text-slate-500');
+        tabUrl.classList.remove('bg-white', 'shadow-xs', 'text-pink-600');
+        tabUrl.classList.add('text-slate-500');
+        deviceSec.classList.remove('hidden');
+        urlSec.classList.add('hidden');
+      };
+
+      tabUrl.onclick = () => {
+        tabUrl.classList.add('bg-white', 'shadow-xs', 'text-pink-600');
+        tabUrl.classList.remove('text-slate-500');
+        tabDevice.classList.remove('bg-white', 'shadow-xs', 'text-pink-600');
+        tabDevice.classList.add('text-slate-500');
+        urlSec.classList.remove('hidden');
+        deviceSec.classList.add('hidden');
+      };
+
+      // File input and drag & drop
+      const fileInput = document.getElementById('deviceFileInput');
+      const dropZone = document.getElementById('dropZone');
+
+      fileInput.onchange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+          handleFileSelected(e.target.files[0]);
+        }
+      };
+
+      dropZone.ondragover = (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-blush-600', 'bg-blush-100');
+      };
+
+      dropZone.ondragleave = () => {
+        dropZone.classList.remove('border-blush-600', 'bg-blush-100');
+      };
+
+      dropZone.ondrop = (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-blush-600', 'bg-blush-100');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          handleFileSelected(e.dataTransfer.files[0]);
+        }
+      };
+
+      document.getElementById('clearUploadBtn').onclick = clearUploadedFile;
+
+      // Sidebar All Link
+      document.getElementById('sidebarAllLink').onclick = () => {
+        navigateToFilter(null, null, null);
+        closeMobileMenu();
+      };
+
+      document.getElementById('resetFilterBtn').onclick = () => {
+        navigateToFilter(null, null, null);
+      };
+
+      document.getElementById('clearAllFiltersBtn').onclick = () => {
+        navigateToFilter(null, null, null);
+      };
+
+      // Live search
+      const searchInput = document.getElementById('searchInput');
+      const searchInputMobile = document.getElementById('searchInputMobile');
+      const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+      searchInput.addEventListener('input', (e) => {
+        currentSearchTerm = e.target.value;
+        if (searchInputMobile) searchInputMobile.value = currentSearchTerm;
+        clearSearchBtn.classList.toggle('hidden', !currentSearchTerm);
+        renderGallery();
+      });
+
+      if (searchInputMobile) {
+        searchInputMobile.addEventListener('input', (e) => {
+          currentSearchTerm = e.target.value;
+          searchInput.value = currentSearchTerm;
+          clearSearchBtn.classList.toggle('hidden', !currentSearchTerm);
+          renderGallery();
+        });
+      }
+
+      clearSearchBtn.onclick = () => {
+        currentSearchTerm = '';
+        searchInput.value = '';
+        if (searchInputMobile) searchInputMobile.value = '';
+        clearSearchBtn.classList.add('hidden');
+        renderGallery();
+      };
+
+      // Favorites
+      document.getElementById('favoritesToggleBtn').onclick = () => {
+        if (filterFavoritesOnly) {
+          window.location.hash = 'all';
+        } else {
+          window.location.hash = 'favorites';
+        }
+      };
+
+      // Mobile Menu
+      document.getElementById('mobileMenuBtn').onclick = openMobileMenu;
+      document.getElementById('closeMobileSidebar').onclick = closeMobileMenu;
+      document.getElementById('mobileBackdrop').onclick = closeMobileMenu;
+
+      // Lightbox
+      document.getElementById('closeLightboxBtn').onclick = closeLightbox;
+      document.getElementById('lightboxModal').onclick = (e) => {
+        if (e.target === document.getElementById('lightboxModal')) closeLightbox();
+      };
+      document.getElementById('lbPrevBtn').onclick = () => stepLightbox(-1);
+      document.getElementById('lbNextBtn').onclick = () => stepLightbox(1);
+      document.getElementById('lightboxHeartBtn').onclick = () => {
+        if (currentLightboxPhotoId) toggleLike(currentLightboxPhotoId);
+      };
+
+      document.getElementById('copyShareLinkBtn').onclick = () => {
+        const url = window.location.href;
+        const temp = document.createElement('input');
+        temp.value = url;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        showToast('Direct link copied to clipboard!', '📋');
+      };
+
+      // Delete Still Triggers
+      document.getElementById('lightboxDeleteBtn').onclick = () => {
+        if (currentLightboxPhotoId) {
+          promptDeleteStill(currentLightboxPhotoId);
+        }
+      };
+
+      document.getElementById('cancelDeleteBtn').onclick = closeDeleteConfirmModal;
+      document.getElementById('confirmDeleteBtn').onclick = executeDeleteStill;
+      document.getElementById('deleteConfirmModal').onclick = (e) => {
+        if (e.target === document.getElementById('deleteConfirmModal')) closeDeleteConfirmModal();
+      };
+
+      window.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('lightboxModal');
+        const deleteModal = document.getElementById('deleteConfirmModal');
+        if (!deleteModal.classList.contains('opacity-0')) {
+          if (e.key === 'Escape') closeDeleteConfirmModal();
+          return;
+        }
+        if (!modal.classList.contains('opacity-0')) {
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowLeft') stepLightbox(-1);
+          if (e.key === 'ArrowRight') stepLightbox(1);
+        }
+      });
+
+      // Add Modal
+      document.getElementById('openAddModalBtn').onclick = openAddModal;
+      document.getElementById('closeAddModalBtn').onclick = closeAddModal;
+      document.getElementById('cancelAddModalBtn').onclick = closeAddModal;
+      document.getElementById('addPhotoModal').onclick = (e) => {
+        if (e.target === document.getElementById('addPhotoModal')) closeAddModal();
+      };
+
+      document.getElementById('newEra').addEventListener('change', (e) => {
+        populateSubcategoryDropdown(e.target.value);
+      });
+
+      // Form submission
+      document.getElementById('addPhotoForm').onsubmit = (e) => {
+        e.preventDefault();
+        if (isUploading) {
+          showToast('Image is still uploading to Cloudinary...', '⏳');
+          return;
+        }
+
+        const title = document.getElementById('newTitle').value.trim();
+        const urlInput = document.getElementById('newUrl').value.trim();
+        const finalUrl = stagedUploadUrl || urlInput;
+
+        if (!finalUrl) {
+          showToast('Please upload an image file or provide an image link', '⚠️');
+          return;
+        }
+
+        const era = document.getElementById('newEra').value;
+        const subcategory = document.getElementById('newSubcategory').value;
+        const year = document.getElementById('newYear').value.trim() || '1920s';
+        const rawTags = document.getElementById('newTags').value;
+        const desc = document.getElementById('newDesc').value.trim();
+
+        const tagList = rawTags
+          .split(',')
+          .map(t => t.replace(/#/g, '').trim().toLowerCase())
+          .filter(t => t.length > 0);
+
+        if (tagList.length === 0) {
+          tagList.push('keaton');
+        }
+
+        const newEntry = {
+          id: 'bk-' + Date.now(),
+          title,
+          url: finalUrl,
+          era,
+          subcategory,
+          film: year,
+          year,
+          tags: tagList,
+          desc,
+          likes: 1,
+          isLiked: true
+        };
+
+        photos.unshift(newEntry);
+        persistData();
+        closeAddModal();
+        renderGallery();
+        showToast(`Added "${title}" to the archive!`, '🌸');
+      };
+
+      // Export JSON
+      document.getElementById('exportJsonBtn').onclick = () => {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(photos, null, 2));
+        const dlAnchorElem = document.createElement('a');
+        dlAnchorElem.setAttribute("href", dataStr);
+        dlAnchorElem.setAttribute("download", `keaton_archive_${new Date().toISOString().slice(0, 10)}.json`);
+        dlAnchorElem.click();
+        showToast('Archive JSON downloaded!', '💾');
+      };
+
+      // Import JSON
+      document.getElementById('importJsonInput').onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const parsed = JSON.parse(event.target.result);
+            if (Array.isArray(parsed)) {
+              photos = parsed;
+              persistData();
+              renderGallery();
+              showToast(`Imported ${parsed.length} stills!`, '🎉');
+              closeAddModal();
+            } else {
+              showToast('Invalid archive file format', '⚠️');
+            }
+          } catch (err) {
+            showToast('Error parsing JSON file', '⚠️');
+          }
+        };
+        reader.readAsText(file);
+      };
+
+      // Reset to Default Archive
+      document.getElementById('resetDefaultArchiveBtn').onclick = () => {
+        if (confirm('Reset to original Buster Keaton stills? Your added stills will be cleared.')) {
+          photos = JSON.parse(JSON.stringify(INITIAL_KEATON_ARCHIVE));
+          persistData();
+          renderGallery();
+          showToast('Restored default archive', '✨');
+          closeAddModal();
+        }
+      };
+
+      window.addEventListener('hashchange', handleHashChange);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initData();
+      bindEventListeners();
+      populateSubcategoryDropdown('1920–1928');
+      handleHashChange();
+    });
+  </script>
+</body>
+</html>
