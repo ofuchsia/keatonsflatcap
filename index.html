@@ -624,16 +624,16 @@
       <form id="adminLoginForm" class="space-y-3 text-left">
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Email</label>
-          <input type="email" id="adminEmailInput" required placeholder="admin@example.com" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+          <input type="email" id="adminEmailInput" required placeholder="admin@example.com" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none pointer-events-auto" />
         </div>
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Password</label>
-          <input type="password" id="adminPasswordInput" required placeholder="••••••••" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+          <input type="password" id="adminPasswordInput" required placeholder="••••••••" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none pointer-events-auto" />
         </div>
 
         <div class="pt-2 flex items-center gap-2">
-          <button type="button" id="cancelAdminLoginBtn" onclick="document.getElementById('adminLoginModal').classList.add('opacity-0', 'pointer-events-none')" class="flex-1 py-2 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer">Cancel</button>
-          <button type="submit" class="flex-1 py-2 rounded-full bg-blush-500 hover:bg-blush-600 text-white text-xs font-bold shadow transition-all cursor-pointer">Sign In</button>
+          <button type="button" id="cancelAdminLoginBtn" onclick="document.getElementById('adminLoginModal').classList.add('opacity-0', 'pointer-events-none')" class="flex-1 py-2 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer pointer-events-auto">Cancel</button>
+          <button type="submit" class="flex-1 py-2 rounded-full bg-blush-500 hover:bg-blush-600 text-white text-xs font-bold shadow transition-all cursor-pointer pointer-events-auto">Sign In</button>
         </div>
       </form>
     </div>
@@ -1210,6 +1210,12 @@
         if (e.target.id === 'lightboxModal') closeLightbox();
       };
 
+      document.getElementById('adminLoginModal').onclick = (e) => {
+        if (e.target.id === 'adminLoginModal') {
+          document.getElementById('adminLoginModal').classList.add('opacity-0', 'pointer-events-none');
+        }
+      };
+
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           closeDeleteConfirmModal();
@@ -1229,7 +1235,8 @@
             signOut(auth).then(() => showToast('Signed out of admin', '🔒'));
           }
         } else {
-          adminModal.classList.remove('opacity-0', 'pointer-events-none');
+          adminModal.classList.remove('opacity-0');
+          adminModal.classList.remove('pointer-events-none');
         }
       };
 
@@ -1267,7 +1274,8 @@
       const addModal = document.getElementById('addPhotoModal');
       document.getElementById('openAddModalBtn').onclick = () => {
         populateSubcategoryDropdown(document.getElementById('newEra').value);
-        addModal.classList.remove('opacity-0', 'pointer-events-none');
+        addModal.classList.remove('opacity-0');
+        addModal.classList.remove('pointer-events-none');
       };
       document.getElementById('closeAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
       document.getElementById('cancelAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
