@@ -165,10 +165,11 @@
       <div class="flex items-center gap-3">
         <button 
           id="mobileMenuBtn" 
-          class="lg:hidden p-2 rounded-xl bg-white border border-blush-200 text-blush-500 hover:bg-blush-50 focus:outline-none cursor-pointer"
+          type="button"
+          class="lg:hidden p-2 rounded-xl bg-white border border-blush-200 text-blush-500 hover:bg-blush-50 focus:outline-none cursor-pointer relative z-50 pointer-events-auto"
           title="Toggle Timeline Menu"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
@@ -178,9 +179,9 @@
           <button 
             id="porkpieModeBtn" 
             title="Click Buster's Hat to toggle 1920s Nitrate Film Mode!" 
-            class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blush-200 via-white to-babyblue-200 flex items-center justify-center border-2 border-blush-300 shadow-sm hover:scale-105 active:scale-95 transition-all p-1 cursor-pointer"
+            class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blush-200 via-white to-babyblue-200 flex items-center justify-center border-2 border-blush-300 shadow-sm hover:scale-105 active:scale-95 transition-all p-1 cursor-pointer pointer-events-auto"
           >
-            <svg viewBox="0 0 100 56" class="w-full h-full max-w-[32px] max-h-[22px]" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 100 56" class="w-full h-full max-w-[32px] max-h-[22px] pointer-events-none" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="50" cy="38" rx="46" ry="12" fill="#5b646c"/>
               <ellipse cx="50" cy="36.5" rx="44" ry="10.5" fill="#88929b"/>
               <ellipse cx="50" cy="35.5" rx="42" ry="9" fill="#a4adb6"/>
@@ -195,7 +196,7 @@
           </button>
 
           <!-- Site Title / Home Reset Trigger -->
-          <a href="#all" class="group flex flex-col">
+          <a href="#all" class="group flex flex-col pointer-events-auto">
             <div class="flex items-center gap-2">
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-blush-500 bg-blush-50 px-2 py-0.5 rounded-full border border-blush-200">
                 1895–1966
@@ -234,7 +235,7 @@
         <!-- Add Photo Button (Hidden until logged in as Admin) -->
         <button 
           id="openAddModalBtn"
-          class="hidden flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-gradient-to-r from-blush-400 via-pink-400 to-babyblue-400 text-white shadow hover:shadow-md hover:opacity-95 transition-all transform active:scale-95 cursor-pointer"
+          class="hidden flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-gradient-to-r from-blush-400 via-pink-400 to-babyblue-400 text-white shadow hover:shadow-md hover:opacity-95 transition-all transform active:scale-95 cursor-pointer pointer-events-auto"
         >
           <span>＋</span>
           <span class="hidden sm:inline">Add Buster Photo</span>
@@ -245,18 +246,18 @@
         <button 
           id="favoritesToggleBtn"
           title="Filter Loved Photos"
-          class="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-white border border-blush-200 text-blush-500 hover:bg-blush-50 transition-all shadow-sm active:scale-95 cursor-pointer"
+          class="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-white border border-blush-200 text-blush-500 hover:bg-blush-50 transition-all shadow-sm active:scale-95 cursor-pointer pointer-events-auto"
         >
-          <svg class="w-4 h-4 fill-blush-400 text-blush-400" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 fill-blush-400 text-blush-400 pointer-events-none" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
-          <span id="favCountBadge" class="text-xs font-extrabold text-slate-700">0</span>
+          <span id="favCountBadge" class="text-xs font-extrabold text-slate-700 pointer-events-none">0</span>
         </button>
 
         <!-- Admin Login / Status Button (Always visible) -->
         <button 
           id="adminAuthBtn"
-          class="flex items-center gap-1 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all shadow-xs cursor-pointer"
+          class="flex items-center gap-1 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all shadow-xs cursor-pointer pointer-events-auto"
         >
           <span>🔒</span>
           <span id="adminBtnLabel">Admin</span>
@@ -269,14 +270,14 @@
   <div class="flex-grow max-w-[1680px] w-full mx-auto px-3 sm:px-6 py-4 flex gap-6 relative">
     
     <!-- Mobile Sidebar Backdrop -->
-    <div id="mobileBackdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden lg:hidden"></div>
+    <div id="mobileBackdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden lg:hidden pointer-events-auto"></div>
 
     <!-- LEFT SIDEBAR -->
     <aside 
       id="sidebarMenu" 
-      class="max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-50 max-lg:w-72 max-lg:h-dvh max-lg:bg-white/95 max-lg:backdrop-blur-md max-lg:p-4 max-lg:transform max-lg:-translate-x-full transition-transform duration-300 ease-in-out shrink-0 lg:block lg:w-72 lg:shrink-0"
+      class="max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-50 max-lg:w-72 max-lg:h-dvh max-lg:bg-white/95 max-lg:backdrop-blur-md max-lg:p-4 max-lg:transform max-lg:-translate-x-full transition-transform duration-300 ease-in-out shrink-0 lg:block lg:w-72 lg:shrink-0 pointer-events-auto"
     >
-      <div class="glass-panel rounded-3xl p-4 shadow-sm border border-blush-200 flex flex-col lg:sticky lg:top-[88px] lg:max-h-[calc(100vh-108px)]">
+      <div class="glass-panel rounded-3xl p-4 shadow-sm border border-blush-200 flex flex-col lg:sticky lg:top-[88px] lg:max-h-[calc(100vh-108px)] h-full">
         
         <div class="flex items-center justify-between border-b border-blush-100 pb-3 shrink-0">
           <div class="flex items-center gap-2">
@@ -285,7 +286,8 @@
           </div>
           <button 
             id="closeMobileSidebar" 
-            class="lg:hidden w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer"
+            type="button"
+            class="lg:hidden w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer pointer-events-auto"
           >
             ✕
           </button>
@@ -294,12 +296,12 @@
         <div class="py-2.5 shrink-0">
           <button 
             id="sidebarAllLink"
-            class="w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs font-bold bg-gradient-to-r from-pink-50 to-babyblue-50 hover:from-pink-100 hover:to-babyblue-100 text-pink-700 border border-blush-200 transition-all text-left shadow-xs cursor-pointer"
+            class="w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs font-bold bg-gradient-to-r from-pink-50 to-babyblue-50 hover:from-pink-100 hover:to-babyblue-100 text-pink-700 border border-blush-200 transition-all text-left shadow-xs cursor-pointer pointer-events-auto"
           >
-            <span class="flex items-center gap-2">
+            <span class="flex items-center gap-2 pointer-events-none">
               <span>🌸</span> All Archives
             </span>
-            <span id="sidebarTotalBadge" class="text-[10px] bg-white px-2 py-0.5 rounded-full border border-blush-200 text-slate-600 font-extrabold">0</span>
+            <span id="sidebarTotalBadge" class="text-[10px] bg-white px-2 py-0.5 rounded-full border border-blush-200 text-slate-600 font-extrabold pointer-events-none">0</span>
           </button>
         </div>
 
@@ -337,7 +339,7 @@
             <div class="flex items-center gap-2 flex-wrap mb-1">
               <button 
                 id="resetFilterBtn"
-                class="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-blush-600 hover:text-blush-700 bg-white px-2.5 py-1 rounded-full border border-blush-200 shadow-xs transition-all hover:scale-105 cursor-pointer"
+                class="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-blush-600 hover:text-blush-700 bg-white px-2.5 py-1 rounded-full border border-blush-200 shadow-xs transition-all hover:scale-105 cursor-pointer pointer-events-auto"
               >
                 <span>←</span> View All Photos
               </button>
@@ -376,7 +378,7 @@
         </p>
         <button 
           id="clearAllFiltersBtn"
-          class="px-4 py-2 bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold rounded-full shadow hover:opacity-95 transition-all cursor-pointer"
+          class="px-4 py-2 bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold rounded-full shadow hover:opacity-95 transition-all cursor-pointer pointer-events-auto"
         >
           Reset To All Stills 🌸
         </button>
@@ -449,10 +451,10 @@
             id="lightboxHeartBtn" 
             class="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full border border-blush-300 text-blush-500 font-bold text-xs hover:bg-blush-50 transition-all active:scale-95 shadow-xs cursor-pointer pointer-events-auto"
           >
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 fill-current pointer-events-none" viewBox="0 0 24 24">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
-            <span id="lightboxHeartLabel">Love Still (0)</span>
+            <span id="lightboxHeartLabel" class="pointer-events-none">Love Still (0)</span>
           </button>
 
           <button 
@@ -522,7 +524,7 @@
         <div class="flex items-center gap-1.5 font-cute font-bold text-slate-800 text-sm">
           <span>🌸 Add Buster Still (Admin)</span>
         </div>
-        <button id="closeAddModalBtn" type="button" onclick="document.getElementById('addPhotoModal').classList.add('opacity-0', 'pointer-events-none')" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer">✕</button>
+        <button id="closeAddModalBtn" type="button" onclick="document.getElementById('addPhotoModal').classList.add('opacity-0', 'pointer-events-none')" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer pointer-events-auto">✕</button>
       </div>
 
       <form id="addPhotoForm" class="space-y-3">
@@ -530,23 +532,23 @@
           <div class="flex items-center justify-between mb-1.5">
             <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500">Photo Source *</label>
             <div class="inline-flex p-0.5 rounded-xl bg-slate-100 text-[10px] font-bold">
-              <button type="button" id="tabUploadDevice" class="px-2.5 py-0.5 rounded-lg bg-white shadow-xs text-pink-600 transition-all cursor-pointer">📁 PC / Phone (Cloudinary)</button>
-              <button type="button" id="tabUploadUrl" class="px-2.5 py-0.5 rounded-lg text-slate-500 hover:text-slate-800 transition-all cursor-pointer">🔗 Web URL</button>
+              <button type="button" id="tabUploadDevice" class="px-2.5 py-0.5 rounded-lg bg-white shadow-xs text-pink-600 transition-all cursor-pointer pointer-events-auto">📁 PC / Phone (Cloudinary)</button>
+              <button type="button" id="tabUploadUrl" class="px-2.5 py-0.5 rounded-lg text-slate-500 hover:text-slate-800 transition-all cursor-pointer pointer-events-auto">🔗 Web URL</button>
             </div>
           </div>
 
           <div id="deviceUploadSection">
-            <label for="deviceFileInput" id="dropZone" class="border-2 border-dashed border-blush-300 hover:border-blush-500 bg-blush-50/50 hover:bg-blush-50 transition-all rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer group">
-              <svg class="w-8 h-8 text-pink-400 group-hover:scale-110 transition-transform mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <label for="deviceFileInput" id="dropZone" class="border-2 border-dashed border-blush-300 hover:border-blush-500 bg-blush-50/50 hover:bg-blush-50 transition-all rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer group pointer-events-auto">
+              <svg class="w-8 h-8 text-pink-400 group-hover:scale-110 transition-transform mb-1 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
               </svg>
-              <span class="text-xs font-bold text-slate-700">Select still from PC or Camera Roll</span>
-              <input type="file" id="deviceFileInput" accept="image/*" class="hidden" />
+              <span class="text-xs font-bold text-slate-700 pointer-events-none">Select still from PC or Camera Roll</span>
+              <input type="file" id="deviceFileInput" accept="image/*" class="hidden pointer-events-auto" />
             </label>
           </div>
 
           <div id="urlUploadSection" class="hidden">
-            <input type="url" id="newUrl" placeholder="https://...image.jpg" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+            <input type="url" id="newUrl" placeholder="https://...image.jpg" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none pointer-events-auto cursor-text" />
           </div>
 
           <div id="uploadStatusBox" class="hidden mt-2 p-2.5 rounded-xl border flex items-center gap-3">
@@ -556,19 +558,19 @@
               <p class="text-[11px] font-bold text-slate-700 truncate" id="uploadStatusText">Uploading to Cloudinary...</p>
               <span class="text-[9px] text-pink-600 font-semibold" id="uploadSubStatus">Please wait a moment</span>
             </div>
-            <button type="button" id="clearUploadBtn" class="text-xs text-slate-400 hover:text-pink-600 p-1 font-bold cursor-pointer hidden">✕</button>
+            <button type="button" id="clearUploadBtn" class="text-xs text-slate-400 hover:text-pink-600 p-1 font-bold cursor-pointer hidden pointer-events-auto">✕</button>
           </div>
         </div>
 
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Title *</label>
-          <input type="text" id="newTitle" required placeholder="e.g., Buster on the Beach with Ukulele" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+          <input type="text" id="newTitle" required placeholder="e.g., Buster on the Beach with Ukulele" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none pointer-events-auto cursor-text" />
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Era *</label>
-            <select id="newEra" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white">
+            <select id="newEra" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white pointer-events-auto cursor-pointer">
               <option value="1895–1917">1895–1917</option>
               <option value="1917–1920">1917–1920</option>
               <option value="1920–1928" selected>1920–1928</option>
@@ -581,28 +583,28 @@
 
           <div>
             <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Subcategory *</label>
-            <select id="newSubcategory" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white"></select>
+            <select id="newSubcategory" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white pointer-events-auto cursor-pointer"></select>
           </div>
         </div>
 
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year</label>
-          <input type="text" id="newYear" placeholder="e.g., The General (1926)" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+          <input type="text" id="newYear" placeholder="e.g., The General (1926)" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none pointer-events-auto cursor-text" />
         </div>
 
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Tags (Comma-separated)</label>
-          <input type="text" id="newTags" placeholder="porkpie, stunts, rare, vintage" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+          <input type="text" id="newTags" placeholder="porkpie, stunts, rare, vintage" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none pointer-events-auto cursor-text" />
         </div>
 
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Notes / Description</label>
-          <textarea id="newDesc" rows="2" placeholder="Historical details..." class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none resize-none"></textarea>
+          <textarea id="newDesc" rows="2" placeholder="Historical details..." class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none resize-none pointer-events-auto cursor-text"></textarea>
         </div>
 
         <div class="pt-2 flex justify-end gap-2">
-          <button type="button" id="cancelAddModalBtn" onclick="document.getElementById('addPhotoModal').classList.add('opacity-0', 'pointer-events-none')" class="px-4 py-1.5 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer">Cancel</button>
-          <button type="submit" id="submitStillBtn" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold shadow hover:opacity-95 cursor-pointer">Add Still to Cloud 🌸</button>
+          <button type="button" id="cancelAddModalBtn" onclick="document.getElementById('addPhotoModal').classList.add('opacity-0', 'pointer-events-none')" class="px-4 py-1.5 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer pointer-events-auto">Cancel</button>
+          <button type="submit" id="submitStillBtn" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold shadow hover:opacity-95 cursor-pointer pointer-events-auto">Add Still to Cloud 🌸</button>
         </div>
       </form>
     </div>
@@ -621,7 +623,7 @@
       <h3 class="font-cute text-lg font-bold text-slate-800 mb-1">Admin Sign In</h3>
       <p class="text-xs text-slate-500 mb-4">Enter your Firebase admin credentials to unlock uploading and deleting.</p>
 
-      <form id="adminLoginForm" class="space-y-3 text-left">
+      <form id="adminLoginForm" class="space-y-3 text-left pointer-events-auto">
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Email</label>
           <input type="email" id="adminEmailInput" required placeholder="admin@example.com" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none pointer-events-auto relative z-20 cursor-text" />
@@ -760,7 +762,6 @@
     let photoToDeleteId = null;
     let isAdminLoggedIn = false;
 
-    // Make closeLightbox and closeDeleteConfirmModal globally accessible for inline onclick
     window.closeLightbox = function() {
       const modal = document.getElementById('lightboxModal');
       modal.classList.add('opacity-0', 'pointer-events-none');
@@ -815,7 +816,6 @@
       }
     }
 
-    // Real-Time Firebase Sync Listener
     async function initFirebaseSync() {
       const colRef = collection(db, 'keaton_stills');
       
@@ -916,25 +916,25 @@
         const eraCount = photos.filter(p => p.era === node.era).length;
 
         const eraItem = document.createElement('div');
-        eraItem.className = 'rounded-2xl border border-blush-100 overflow-hidden bg-white/70 transition-all';
+        eraItem.className = 'rounded-2xl border border-blush-100 overflow-hidden bg-white/70 transition-all pointer-events-auto';
 
         eraItem.innerHTML = `
-          <div class="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-blush-50/70 transition-colors ${isOpen ? 'bg-blush-50/60 font-bold' : ''}">
-            <button class="era-filter-btn flex-1 text-left flex items-center justify-between pr-2 text-xs font-bold text-slate-700 hover:text-pink-600 cursor-pointer">
-              <span class="flex items-center gap-1.5">
+          <div class="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-blush-50/70 transition-colors pointer-events-auto ${isOpen ? 'bg-blush-50/60 font-bold' : ''}">
+            <button class="era-filter-btn flex-1 text-left flex items-center justify-between pr-2 text-xs font-bold text-slate-700 hover:text-pink-600 cursor-pointer pointer-events-auto">
+              <span class="flex items-center gap-1.5 pointer-events-none">
                 <span class="w-1.5 h-1.5 rounded-full ${isOpen ? 'bg-pink-500 ring-2 ring-pink-200' : 'bg-slate-300'}"></span>
                 <span>${node.era}</span>
               </span>
-              <span class="text-[10px] text-slate-400 font-semibold">(${eraCount})</span>
+              <span class="text-[10px] text-slate-400 font-semibold pointer-events-none">(${eraCount})</span>
             </button>
-            <button class="accordion-toggle-btn p-1 text-slate-400 hover:text-pink-500 transition-transform ${isOpen ? 'rotate-180' : ''} cursor-pointer" title="Toggle subcategories">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button class="accordion-toggle-btn p-1 text-slate-400 hover:text-pink-500 transition-transform ${isOpen ? 'rotate-180' : ''} cursor-pointer pointer-events-auto" title="Toggle subcategories">
+              <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
           </div>
 
-          <div class="accordion-content ${isOpen ? 'open' : ''} px-2 pb-2 pt-1 border-t border-blush-50 bg-pink-50/20 space-y-1">
+          <div class="accordion-content ${isOpen ? 'open' : ''} px-2 pb-2 pt-1 border-t border-blush-50 bg-pink-50/20 space-y-1 pointer-events-auto">
             ${node.subcategories.map(sub => {
               const subCount = photos.filter(p => p.era === node.era && p.subcategory && p.subcategory.toLowerCase() === sub.toLowerCase()).length;
               const isSubSelected = (selectedEra === node.era && selectedSubcategory && selectedSubcategory.toLowerCase() === sub.toLowerCase());
@@ -943,24 +943,24 @@
                 <button 
                   data-era="${node.era}"
                   data-sub="${sub}"
-                  class="subcategory-link w-full text-left px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all flex items-center justify-between cursor-pointer ${
+                  class="subcategory-link w-full text-left px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all flex items-center justify-between cursor-pointer pointer-events-auto ${
                     isSubSelected 
                       ? 'bg-gradient-to-r from-pink-400 to-blush-500 text-white shadow-xs font-bold' 
                       : 'text-slate-600 hover:bg-blush-100/60 hover:text-pink-700'
                   }"
                 >
-                  <span class="flex items-center gap-1.5">
+                  <span class="flex items-center gap-1.5 pointer-events-none">
                     <span class="text-[9px] ${isSubSelected ? 'text-white' : 'text-blush-400'}">↳</span>
                     <span>${sub}</span>
                   </span>
-                  <span class="text-[9px] opacity-80">(${subCount})</span>
+                  <span class="text-[9px] opacity-80 pointer-events-none">(${subCount})</span>
                 </button>
               `;
             }).join('')}
           </div>
         `;
 
-        eraItem.querySelector('.era-filter-btn').onclick = () => { navigateToFilter(node.era, null, null); };
+        eraItem.querySelector('.era-filter-btn').onclick = () => { navigateToFilter(node.era, null, null); closeMobileMenu(); };
         eraItem.querySelector('.accordion-toggle-btn').onclick = (e) => {
           e.stopPropagation();
           const content = eraItem.querySelector('.accordion-content');
@@ -1007,7 +1007,7 @@
       topTags.forEach(tag => {
         const isCurrent = (selectedTag && selectedTag.toLowerCase() === tag);
         const pill = document.createElement('button');
-        pill.className = `text-[10px] font-bold px-2 py-0.5 rounded-lg border transition-all cursor-pointer ${
+        pill.className = `text-[10px] font-bold px-2 py-0.5 rounded-lg border transition-all cursor-pointer pointer-events-auto ${
           isCurrent ? 'bg-sky-400 text-white border-sky-400' : 'bg-white text-slate-600 border-blush-200 hover:bg-blush-50'
         }`;
         pill.textContent = `#${tag}`;
@@ -1071,37 +1071,37 @@
 
       items.forEach(photo => {
         const card = document.createElement('article');
-        card.className = 'glass-panel rounded-2xl overflow-hidden photo-card flex flex-col group border border-blush-200/90 relative';
+        card.className = 'glass-panel rounded-2xl overflow-hidden photo-card flex flex-col group border border-blush-200/90 relative pointer-events-auto';
 
         const tagsHtml = photo.tags && Array.isArray(photo.tags) ? photo.tags.slice(0, 2).map(tag => `
-          <button data-tag="${tag}" class="card-tag-btn text-[9px] font-bold px-1.5 py-0.5 rounded bg-blush-50 text-blush-600 hover:bg-blush-100 transition-colors cursor-pointer">
+          <button data-tag="${tag}" class="card-tag-btn text-[9px] font-bold px-1.5 py-0.5 rounded bg-blush-50 text-blush-600 hover:bg-blush-100 transition-colors cursor-pointer pointer-events-auto">
             #${tag}
           </button>
         `).join('') : '';
 
         card.innerHTML = `
-          <div class="relative w-full aspect-[4/5] bg-slate-900 overflow-hidden cursor-pointer img-trigger">
-            <img src="${photo.url}" alt="${photo.title}" loading="lazy" onerror="this.src='https://placehold.co/400x500/ffe4ed/ec4899?text=Buster+Keaton'" class="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105" />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end p-2">
-              <span class="text-white text-[10px] font-bold">🔍 Inspect</span>
+          <div class="relative w-full aspect-[4/5] bg-slate-900 overflow-hidden cursor-pointer img-trigger pointer-events-auto">
+            <img src="${photo.url}" alt="${photo.title}" loading="lazy" onerror="this.src='https://placehold.co/400x500/ffe4ed/ec4899?text=Buster+Keaton'" class="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105 pointer-events-auto" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end p-2 pointer-events-none">
+              <span class="text-white text-[10px] font-bold pointer-events-none">🔍 Inspect</span>
             </div>
-            <span class="absolute top-1.5 left-1.5 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-white/95 text-pink-600 border border-pink-100 shadow-xs">${photo.era}</span>
-            <button data-id="${photo.id}" class="like-btn absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/95 shadow flex items-center justify-center transition-transform hover:scale-110 active:scale-90 cursor-pointer" title="Love still">
-              <svg class="w-3.5 h-3.5 ${photo.isLiked ? 'fill-pink-500 text-pink-500' : 'text-slate-400 fill-none'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="${photo.isLiked ? '0' : '2'}">
+            <span class="absolute top-1.5 left-1.5 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-white/95 text-pink-600 border border-pink-100 shadow-xs pointer-events-none">${photo.era}</span>
+            <button data-id="${photo.id}" class="like-btn absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/95 shadow flex items-center justify-center transition-transform hover:scale-110 active:scale-90 cursor-pointer pointer-events-auto" title="Love still">
+              <svg class="w-3.5 h-3.5 ${photo.isLiked ? 'fill-pink-500 text-pink-500' : 'text-slate-400 fill-none'} pointer-events-none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="${photo.isLiked ? '0' : '2'}">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </button>
           </div>
-          <div class="p-2 sm:p-2.5 flex-1 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between text-[10px] text-slate-400 font-semibold mb-0.5">
-                <span class="truncate max-w-[70%] font-bold text-slate-500">${photo.subcategory || 'General'}</span>
-                <span class="text-pink-500 text-[10px] font-bold">♥ ${photo.likes || 0}</span>
+          <div class="p-2 sm:p-2.5 flex-1 flex flex-col justify-between pointer-events-auto">
+            <div class="pointer-events-auto">
+              <div class="flex items-center justify-between text-[10px] text-slate-400 font-semibold mb-0.5 pointer-events-auto">
+                <span class="truncate max-w-[70%] font-bold text-slate-500 pointer-events-auto">${photo.subcategory || 'General'}</span>
+                <span class="text-pink-500 text-[10px] font-bold pointer-events-auto">♥ ${photo.likes || 0}</span>
               </div>
-              <h4 class="font-cute font-bold text-xs text-slate-800 line-clamp-1 group-hover:text-pink-600 transition-colors cursor-pointer title-trigger">${photo.title}</h4>
-              <p class="text-[10px] text-slate-400 line-clamp-1">${photo.film || photo.year || ''}</p>
+              <h4 class="font-cute font-bold text-xs text-slate-800 line-clamp-1 group-hover:text-pink-600 transition-colors cursor-pointer title-trigger pointer-events-auto">${photo.title}</h4>
+              <p class="text-[10px] text-slate-400 line-clamp-1 pointer-events-auto">${photo.film || photo.year || ''}</p>
             </div>
-            <div class="flex flex-wrap gap-1 pt-1.5 border-t border-pink-50 mt-1.5">${tagsHtml}</div>
+            <div class="flex flex-wrap gap-1 pt-1.5 border-t border-pink-50 mt-1.5 pointer-events-auto">${tagsHtml}</div>
           </div>
         `;
 
@@ -1203,8 +1203,29 @@
       else btn.className = 'flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full border border-blush-300 text-blush-500 font-bold text-xs hover:bg-blush-50 cursor-pointer shadow-xs pointer-events-auto';
     }
 
+    function openMobileMenu() {
+      const sidebar = document.getElementById('sidebarMenu');
+      sidebar.classList.remove('max-lg:-translate-x-full');
+      sidebar.classList.add('max-lg:translate-x-0');
+      document.getElementById('mobileBackdrop').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      const sidebar = document.getElementById('sidebarMenu');
+      sidebar.classList.remove('max-lg:translate-x-0');
+      sidebar.classList.add('max-lg:-translate-x-full');
+      document.getElementById('mobileBackdrop').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
     function bindEventListeners() {
       document.getElementById('porkpieModeBtn').onclick = toggleNitrateMode;
+
+      // Mobile Menu bindings
+      document.getElementById('mobileMenuBtn').onclick = openMobileMenu;
+      document.getElementById('closeMobileSidebar').onclick = closeMobileMenu;
+      document.getElementById('mobileBackdrop').onclick = closeMobileMenu;
 
       document.getElementById('lightboxModal').onclick = (e) => {
         if (e.target.id === 'lightboxModal') closeLightbox();
@@ -1220,6 +1241,7 @@
         if (e.key === 'Escape') {
           closeDeleteConfirmModal();
           closeLightbox();
+          closeMobileMenu();
           document.getElementById('addPhotoModal').classList.add('opacity-0', 'pointer-events-none');
           document.getElementById('adminLoginModal').classList.add('opacity-0', 'pointer-events-none');
         }
@@ -1261,12 +1283,12 @@
         if (user) {
           isAdminLoggedIn = true;
           addBtn.classList.remove('hidden');
-          adminBtn.className = 'flex items-center gap-1 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 transition-all shadow-xs cursor-pointer';
+          adminBtn.className = 'flex items-center gap-1 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 transition-all shadow-xs cursor-pointer pointer-events-auto';
           adminLabel.textContent = 'Admin (Out)';
         } else {
           isAdminLoggedIn = false;
           addBtn.classList.add('hidden');
-          adminBtn.className = 'flex items-center gap-1 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all shadow-xs cursor-pointer';
+          adminBtn.className = 'flex items-center gap-1 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all shadow-xs cursor-pointer pointer-events-auto';
           adminLabel.textContent = 'Admin';
         }
       });
