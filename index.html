@@ -195,7 +195,7 @@
   <div id="filmTintOverlay"></div>
 
   <!-- Header -->
-  <header class="sticky top-0 z-40 glass-panel shadow-sm border-b border-blush-200">
+  <header class="sticky top-0 z-30 glass-panel shadow-sm border-b border-blush-200">
     <div class="max-w-[1680px] mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between gap-3">
       
       <!-- Brand & Mobile Sidebar Toggle -->
@@ -203,7 +203,7 @@
         <button 
           id="mobileMenuBtn" 
           type="button"
-          class="lg:hidden p-2 rounded-xl bg-white border border-blush-200 text-blush-500 hover:bg-blush-50 focus:outline-none cursor-pointer relative z-50"
+          class="lg:hidden p-2 rounded-xl bg-white border border-blush-200 text-blush-500 hover:bg-blush-50 focus:outline-none cursor-pointer relative z-40"
           title="Toggle Timeline Menu"
         >
           <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -272,7 +272,7 @@
         <!-- Add Photo Button -->
         <button 
           id="openAddModalBtn"
-          class="hidden flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-gradient-to-r from-blush-400 via-pink-400 to-babyblue-400 text-white shadow hover:shadow-md hover:opacity-95 transition-all transform active:scale-95 cursor-pointer"
+          class="hidden flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-gradient-to-r from-blush-400 via-pink-400 to-babyblue-400 text-white shadow hover:shadow-md hover:opacity-95 transition-all transform active:scale-95 cursor-pointer pointer-events-auto"
         >
           <span>＋</span>
           <span class="hidden sm:inline">Add Buster Photo</span>
@@ -307,12 +307,12 @@
   <div class="flex-grow max-w-[1680px] w-full mx-auto px-3 sm:px-6 py-4 flex gap-6 relative">
     
     <!-- Mobile Sidebar Backdrop -->
-    <div id="mobileBackdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden lg:hidden"></div>
+    <div id="mobileBackdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-35 hidden lg:hidden"></div>
 
     <!-- LEFT SIDEBAR -->
     <aside 
       id="sidebarMenu" 
-      class="max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-50 max-lg:w-72 max-lg:h-dvh max-lg:bg-white/95 max-lg:backdrop-blur-md max-lg:p-4 max-lg:transform max-lg:-translate-x-full transition-transform duration-300 ease-in-out shrink-0 lg:block lg:w-72 lg:shrink-0"
+      class="max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-45 max-lg:w-72 max-lg:h-dvh max-lg:bg-white/95 max-lg:backdrop-blur-md max-lg:p-4 max-lg:transform max-lg:-translate-x-full transition-transform duration-300 ease-in-out shrink-0 lg:block lg:w-72 lg:shrink-0"
     >
       <div class="glass-panel rounded-3xl p-4 shadow-sm border border-blush-200 flex flex-col lg:sticky lg:top-[88px] lg:max-h-[calc(100vh-108px)] h-full">
         
@@ -463,10 +463,10 @@
   <!-- Intertitle Generator Modal -->
   <div 
     id="intertitleModal" 
-    class="fixed inset-0 z-80 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    class="fixed inset-0 z-60 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
     role="dialog"
   >
-    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 relative z-90">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 relative z-65">
       <div class="flex items-center justify-between mb-4 border-b border-blush-100 pb-3">
         <div class="flex items-center gap-2">
           <span class="text-xl">🎬</span>
@@ -536,16 +536,16 @@
     </div>
   </div>
 
-  <!-- Lightbox Modal -->
+  <!-- Lightbox Modal (z-50) -->
   <div 
     id="lightboxModal" 
-    class="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 opacity-0 pointer-events-none transition-opacity duration-300"
+    class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 opacity-0 pointer-events-none transition-opacity duration-300"
     role="dialog"
     aria-modal="true"
   >
     <div 
       id="lightboxCard"
-      class="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[92vh] flex flex-col md:flex-row overflow-hidden border-2 border-blush-200 transform scale-95 transition-transform duration-300 relative z-10"
+      class="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[92vh] flex flex-col md:flex-row overflow-hidden border-2 border-blush-200 transform scale-95 transition-transform duration-300 relative z-55"
     >
       <div class="md:w-7/12 bg-neutral-900 flex items-center justify-center relative p-3 select-none">
         <img 
@@ -555,15 +555,15 @@
           class="max-h-[46vh] md:max-h-[80vh] w-auto max-w-full object-contain rounded-xl shadow-lg transition-transform duration-200"
         />
         
-        <button id="lbPrevBtn" class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center font-bold shadow transition-all hover:scale-110 cursor-pointer z-20">
+        <button id="lbPrevBtn" class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center font-bold shadow transition-all hover:scale-110 cursor-pointer z-60">
           ❮
         </button>
-        <button id="lbNextBtn" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center font-bold shadow transition-all hover:scale-110 cursor-pointer z-20">
+        <button id="lbNextBtn" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center font-bold shadow transition-all hover:scale-110 cursor-pointer z-60">
           ❯
         </button>
       </div>
 
-      <div class="md:w-5/12 p-5 flex flex-col justify-between bg-white overflow-y-auto relative z-20">
+      <div class="md:w-5/12 p-5 flex flex-col justify-between bg-white overflow-y-auto relative z-60">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
             <div class="flex items-center gap-1.5 flex-wrap">
@@ -574,7 +574,7 @@
                 Silent Films
               </span>
             </div>
-            <button id="closeLightboxBtn" type="button" onclick="closeLightbox()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-pink-100 text-slate-600 hover:text-pink-600 flex items-center justify-center font-bold text-sm transition-colors cursor-pointer relative z-30">
+            <button id="closeLightboxBtn" type="button" onclick="closeLightbox()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-pink-100 text-slate-600 hover:text-pink-600 flex items-center justify-center font-bold text-sm transition-colors cursor-pointer relative z-65">
               ✕
             </button>
           </div>
@@ -625,10 +625,10 @@
     </div>
   </div>
 
-  <!-- Delete Confirmation Modal -->
+  <!-- Delete Confirmation Modal (z-90, sits on top of everything) -->
   <div 
     id="deleteConfirmModal"
-    class="fixed inset-0 z-90 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200"
+    class="fixed inset-0 z-90 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200"
     role="dialog"
   >
     <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-5 border-2 border-rose-200 transform scale-95 transition-transform duration-200 text-center relative z-95">
@@ -659,13 +659,13 @@
     </div>
   </div>
 
-  <!-- Add Photo Modal -->
+  <!-- Add Photo Modal (z-80) -->
   <div 
     id="addPhotoModal" 
-    class="fixed inset-0 z-85 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    class="fixed inset-0 z-80 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
     role="dialog"
   >
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-90">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-85">
       
       <div class="flex items-center justify-between mb-3 border-b border-blush-100 pb-2">
         <div class="flex items-center gap-1.5 font-cute font-bold text-slate-800 text-sm">
@@ -760,7 +760,7 @@
   <!-- Admin Login Modal -->
   <div 
     id="adminLoginModal" 
-    class="fixed inset-0 z-80 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    class="fixed inset-0 z-85 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
     role="dialog"
   >
     <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 text-center relative z-90">
@@ -789,7 +789,7 @@
   </div>
 
   <!-- Toast Notification -->
-  <div id="toastNotification" class="fixed bottom-4 right-4 z-50 bg-slate-900 text-white px-4 py-2 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none border border-pink-300">
+  <div id="toastNotification" class="fixed bottom-4 right-4 z-95 bg-slate-900 text-white px-4 py-2 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none border border-pink-300">
     <span id="toastIcon">✨</span>
     <span id="toastMessage">Notification</span>
   </div>
@@ -1487,7 +1487,6 @@
         document.getElementById('intertitlePreviewText').textContent = val;
       });
 
-      // Save Intertitle Card as Image using html2canvas
       document.getElementById('saveIntertitleImgBtn').onclick = () => {
         const card = document.getElementById('intertitleCardPreview');
         html2canvas(card, { scale: 2, backgroundColor: null }).then(canvas => {
