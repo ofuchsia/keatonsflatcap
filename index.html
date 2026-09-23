@@ -6,6 +6,9 @@
   <title>Keaton's Flat Cap ✦ Buster Keaton Archive</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2canvas for saving intertitle cards as images -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -523,10 +526,10 @@
           </button>
           <button 
             type="button" 
-            id="copyIntertitleBtn"
+            id="saveIntertitleImgBtn"
             class="px-4 py-1.5 rounded-full bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold shadow hover:opacity-95 transition-all cursor-pointer"
           >
-            📋 Copy Text Card
+            📸 Save as Image
           </button>
         </div>
       </div>
@@ -625,10 +628,10 @@
   <!-- Delete Confirmation Modal -->
   <div 
     id="deleteConfirmModal"
-    class="fixed inset-0 z-75 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200"
+    class="fixed inset-0 z-90 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200"
     role="dialog"
   >
-    <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-5 border-2 border-rose-200 transform scale-95 transition-transform duration-200 text-center relative z-10">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-5 border-2 border-rose-200 transform scale-95 transition-transform duration-200 text-center relative z-95">
       <div class="w-12 h-12 mx-auto mb-2 rounded-2xl bg-rose-100 text-rose-500 flex items-center justify-center text-2xl font-bold">
         🗑️
       </div>
@@ -659,16 +662,16 @@
   <!-- Add Photo Modal -->
   <div 
     id="addPhotoModal" 
-    class="fixed inset-0 z-75 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    class="fixed inset-0 z-85 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
     role="dialog"
   >
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-10">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-90">
       
       <div class="flex items-center justify-between mb-3 border-b border-blush-100 pb-2">
         <div class="flex items-center gap-1.5 font-cute font-bold text-slate-800 text-sm">
           <span>🌸 Add Buster Still (Admin)</span>
         </div>
-        <button id="closeAddModalBtn" type="button" onclick="document.getElementById('addPhotoModal').classList.add('opacity-0', 'pointer-events-none')" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer">✕</button>
+        <button id="closeAddModalBtn" type="button" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer">✕</button>
       </div>
 
       <form id="addPhotoForm" class="space-y-3">
@@ -676,7 +679,7 @@
           <div class="flex items-center justify-between mb-1.5">
             <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500">Photo Source *</label>
             <div class="inline-flex p-0.5 rounded-xl bg-slate-100 text-[10px] font-bold">
-              <button type="button" id="tabUploadDevice" class="px-2.5 py-0.5 rounded-lg bg-white shadow-xs text-pink-600 transition-all cursor-pointer">📁 PC / Phone (Cloudinary)</button>
+              <button type="button" id="tabUploadDevice" class="px-2.5 py-0.5 rounded-lg bg-white shadow-xs text-pink-600 transition-all cursor-pointer">📁 PC / Phone</button>
               <button type="button" id="tabUploadUrl" class="px-2.5 py-0.5 rounded-lg text-slate-500 hover:text-slate-800 transition-all cursor-pointer">🔗 Web URL</button>
             </div>
           </div>
@@ -747,7 +750,7 @@
         </div>
 
         <div class="pt-2 flex justify-end gap-2">
-          <button type="button" id="cancelAddModalBtn" onclick="document.getElementById('addPhotoModal').classList.add('opacity-0', 'pointer-events-none')" class="px-4 py-1.5 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer">Cancel</button>
+          <button type="button" id="cancelAddModalBtn" class="px-4 py-1.5 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer">Cancel</button>
           <button type="submit" id="submitStillBtn" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold shadow hover:opacity-95 cursor-pointer">Add Still to Cloud 🌸</button>
         </div>
       </form>
@@ -778,7 +781,7 @@
         </div>
 
         <div class="pt-2 flex items-center gap-2">
-          <button type="button" id="cancelAdminLoginBtn" onclick="document.getElementById('adminLoginModal').classList.add('opacity-0', 'pointer-events-none')" class="flex-1 py-2 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer">Cancel</button>
+          <button type="button" id="cancelAdminLoginBtn" class="flex-1 py-2 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer">Cancel</button>
           <button type="submit" class="flex-1 py-2 rounded-full bg-blush-500 hover:bg-blush-600 text-white text-xs font-bold shadow transition-all cursor-pointer">Sign In</button>
         </div>
       </form>
@@ -922,6 +925,20 @@
       modal.classList.remove('opacity-100');
       photoToDeleteId = null;
     };
+
+    function populateSubcategoryDropdown(eraValue) {
+      const subSelect = document.getElementById('newSubcategory');
+      subSelect.innerHTML = '';
+      const matchedNode = CHRONOLOGY_TREE.find(n => n.era === eraValue);
+      if (matchedNode && matchedNode.subcategories) {
+        matchedNode.subcategories.forEach(sub => {
+          const opt = document.createElement('option');
+          opt.value = sub;
+          opt.textContent = sub;
+          subSelect.appendChild(opt);
+        });
+      }
+    }
 
     function playPianoChime() {
       try {
@@ -1470,10 +1487,15 @@
         document.getElementById('intertitlePreviewText').textContent = val;
       });
 
-      document.getElementById('copyIntertitleBtn').onclick = () => {
-        const text = document.getElementById('intertitleInput').value;
-        navigator.clipboard.writeText(text).then(() => {
-          showToast('Intertitle copied to clipboard! 📋', '🎬');
+      // Save Intertitle Card as Image using html2canvas
+      document.getElementById('saveIntertitleImgBtn').onclick = () => {
+        const card = document.getElementById('intertitleCardPreview');
+        html2canvas(card, { scale: 2, backgroundColor: null }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = 'buster-keaton-intertitle.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          showToast('Intertitle saved as image! 📸', '🎬');
         });
       };
 
@@ -1555,7 +1577,8 @@
 
       const addModal = document.getElementById('addPhotoModal');
       document.getElementById('openAddModalBtn').onclick = () => {
-        populateSubcategoryDropdown(document.getElementById('newEra').value);
+        const eraVal = document.getElementById('newEra').value;
+        populateSubcategoryDropdown(eraVal);
         addModal.classList.remove('opacity-0');
         addModal.classList.remove('pointer-events-none');
       };
@@ -1604,6 +1627,7 @@
       bindEventListeners();
       initFirebaseSync();
       updateIntertitleCardStyle();
+      populateSubcategoryDropdown('1920–1928');
     });
   </script>
 </body>
