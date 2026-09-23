@@ -411,7 +411,7 @@
         />
       </div>
 
-      <!-- Active Filter Banner Header -->
+      <!-- Active Filter Banner Header (Subtitle removed) -->
       <div id="filterBanner" class="mb-4 glass-panel rounded-3xl p-4 sm:p-5 relative overflow-hidden border border-blush-200 bg-gradient-to-r from-pink-50/70 via-white to-sky-50/70 hidden">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
           <div>
@@ -427,9 +427,6 @@
             <h2 id="filterHeading" class="font-cute text-xl sm:text-2xl font-extrabold text-slate-800">
               Filtering Results
             </h2>
-            <p id="filterSubtitle" class="text-xs text-slate-500 mt-0.5">
-              Archive records from the Buster Keaton permanent collection.
-            </p>
           </div>
 
           <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
@@ -677,7 +674,7 @@
     </div>
   </div>
 
-  <!-- Edit Photo Modal -->
+  <!-- Edit Photo Modal (Fixed: z-92 container and z-95 card so it sits cleanly above lightbox) -->
   <div 
     id="editPhotoModal" 
     class="fixed inset-0 z-92 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
@@ -1375,11 +1372,10 @@
             if (sub === 'Arbuckle Shorts') {
               const subContent = btn.nextElementSibling;
               if (subContent && subContent.classList.contains('sub-accordion-content')) {
-                // Toggle minimize / expand
                 const isAlreadyOpen = subContent.classList.contains('open');
                 if (isAlreadyOpen) {
                   subContent.classList.remove('open');
-                  navigateToFilter(era, null, null, null); // Clear subcategory filter if minimized
+                  navigateToFilter(era, null, null, null);
                   return;
                 } else {
                   subContent.classList.add('open');
@@ -1562,8 +1558,8 @@
       const p = photos.find(item => item.id === photoId);
       document.getElementById('deleteTargetTitle').textContent = p ? p.title : 'Photo';
       const modal = document.getElementById('deleteConfirmModal');
-      modal.classList.remove('opacity-0', 'pointer-events-none');
       modal.classList.add('opacity-100');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
     }
 
     async function executeDeleteStill() {
@@ -1832,7 +1828,7 @@
       document.getElementById('closeAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
       document.getElementById('cancelAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
 
-      // Edit Modal bindings
+      // Edit Modal bindings (Fixed z-92 container / z-95 card so it appears correctly above lightbox)
       const editModal = document.getElementById('editPhotoModal');
       document.getElementById('closeEditModalBtn').onclick = () => editModal.classList.add('opacity-0', 'pointer-events-none');
       document.getElementById('cancelEditModalBtn').onclick = () => editModal.classList.add('opacity-0', 'pointer-events-none');
