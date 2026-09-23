@@ -940,6 +940,44 @@
       }
     }
 
+    async function handleFileSelected(file) {
+      const statusBox = document.getElementById('uploadStatusBox');
+      const spinner = document.getElementById('uploadSpinner');
+      const previewImg = document.getElementById('uploadPreviewImg');
+      const statusText = document.getElementById('uploadStatusText');
+      const subStatus = document.getElementById('uploadSubStatus');
+      const clearBtn = document.getElementById('clearUploadBtn');
+
+      statusBox.classList.remove('hidden');
+      spinner.classList.remove('hidden');
+      previewImg.classList.add('hidden');
+      clearBtn.classList.add('hidden');
+      statusText.textContent = 'Uploading to Cloudinary...';
+      subStatus.textContent = 'Please wait a moment';
+      isUploading = true;
+
+      try {
+        const secureUrl = await uploadToCloudinary(file);
+        stagedUploadUrl = secureUrl;
+        isUploading = false;
+
+        spinner.classList.add('hidden');
+        previewImg.src = secureUrl;
+        previewImg.classList.remove('hidden');
+        clearBtn.classList.remove('hidden');
+        statusText.textContent = 'Upload Successful!';
+        subStatus.textContent = file.name;
+        showToast('Image successfully uploaded to Cloud', '🌸');
+      } catch (err) {
+        isUploading = false;
+        spinner.classList.add('hidden');
+        statusText.textContent = 'Upload Failed';
+        subStatus.textContent = err.message;
+        clearBtn.classList.remove('hidden');
+        showToast(`Upload error: ${err.message}`, '❌');
+      }
+    }
+
     function playPianoChime() {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -1584,8 +1622,29 @@
       document.getElementById('closeAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
       document.getElementById('cancelAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
 
+      // Tabs inside Add Photo modal
+      document.getElementById('tabUploadDevice').onclick = () => {
+        document.getElementById('deviceUploadSection').classList.remove('hidden');
+        document.getElementById('urlUploadSection').classList.add('hidden');
+        document.getElementById('tabUploadDevice').className = 'px-2.5 py-0.5 rounded-lg bg-white shadow-xs text-pink-600 transition-all cursor-pointer';
+        document.getElementById('tabUploadUrl').className = 'px-2.5 py-0.5 rounded-lg text-slate-500 hover:text-slate-800 transition-all cursor-pointer';
+      };
+
+      document.getElementById('tabUploadUrl').onclick = () => {
+        document.getElementById('deviceUploadSection').classList.add('hidden');
+        document.getElementById('urlUploadSection').classList.remove('hidden');
+        document.getElementById('tabUploadUrl').className = 'px-2.5 py-0.5 rounded-lg bg-white shadow-xs text-pink-600 transition-all cursor-pointer';
+        document.getElementById('tabUploadDevice').className = 'px-2.5 py-0.5 rounded-lg text-slate-500 hover:text-slate-800 transition-all cursor-pointer';
+      };
+
       document.getElementById('deviceFileInput').onchange = (e) => {
         if (e.target.files[0]) handleFileSelected(e.target.files[0]);
+      };
+
+      document.getElementById('clearUploadBtn').onclick = () => {
+        stagedUploadUrl = '';
+        document.getElementById('uploadStatusBox').classList.add('hidden');
+        document.getElementById('deviceFileInput').value = '';
       };
 
       document.getElementById('newEra').addEventListener('change', (e) => populateSubcategoryDropdown(e.target.value));
@@ -1614,6 +1673,9 @@
 
         await persistPhotoToFirebase(newEntry);
         addModal.classList.add('opacity-0', 'pointer-events-none');
+        document.getElementById('addPhotoForm').reset();
+        stagedUploadUrl = '';
+        document.getElementById('uploadStatusBox').classList.add('hidden');
       };
 
       document.getElementById('lightboxDeleteBtn').onclick = () => {
