@@ -184,7 +184,15 @@
       transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .accordion-content.open {
-      max-height: 280px;
+      max-height: 500px;
+    }
+    .sub-accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sub-accordion-content.open {
+      max-height: 300px;
     }
   </style>
 </head>
@@ -833,7 +841,16 @@
 
     const CHRONOLOGY_TREE = [
       { era: '1895–1917', title: 'Childhood & Vaudeville', subcategories: ['Childhood', 'Muskegon', 'Vaudeville'] },
-      { era: '1917–1920', title: 'Comique Era with Roscoe Arbuckle', subcategories: ['Arbuckle Shorts', 'Family', 'Friends'] },
+      { 
+        era: '1917–1920', 
+        title: 'Comique Era with Roscoe Arbuckle', 
+        subcategories: ['Arbuckle Shorts', 'Family', 'Friends'],
+        nestedSubcategories: {
+          'Arbuckle Shorts': [
+            { year: '1917', films: ['The Butcher Boy', 'The Rough House', 'His Wedding Night', 'Oh Doctor!', 'A Country Hero'] }
+          ]
+        }
+      },
       { era: '1920–1928', title: 'Golden Independent Silent Features', subcategories: ['Silent Films', 'Family', 'Friends'] },
       { era: '1929–1933', title: 'MGM Era & Transition to Sound', subcategories: ['MGM Early Talkies', 'Educational Pictures', 'Behind the Scenes'] },
       { era: '1933–1941', title: 'Columbia Two-Reelers & Studio Writing', subcategories: ['Columbia Shorts', 'Gag Writing & Cameos', 'Portraits'] },
@@ -900,6 +917,7 @@
     let selectedEra = null;
     let selectedSubcategory = null;
     let selectedTag = null;
+    let selectedFilm = null;
     let currentSearchTerm = '';
     let filterFavoritesOnly = false;
     let currentLightboxPhotoId = null;
@@ -1156,49 +1174,83 @@
         const eraItem = document.createElement('div');
         eraItem.className = 'rounded-2xl border border-blush-100 overflow-hidden bg-white/70 transition-all';
 
+        let subcategoriesHtml = node.subcategories.map(sub => {
+          const subCount = photos.filter(p => p.era === node.era && p.subcategory && p.subcategory.toLowerCase() === sub.toLowerCase()).length;
+          const isSubSelected = (selectedEra === node.era && selectedSubcategory && selectedSubcategory.toLowerCase() === sub.toLowerCase() && !selectedFilm);
+
+          let nestedHtml = '';
+          if (node.nestedSubcategories && node.nestedSubcategories[sub]) {
+            const nestedData = node.nestedSubcategories[sub];
+            nestedHtml = `
+              <div class="pl-4 pt-1 space-y-1">
+                ${nestedData.map(group => `
+                  <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider py-0.5">${group.year}</div>
+                  <div class="pl-2 space-y-1 border-l-2 border-pink-200">
+                    ${group.films.map(filmTitle => {
+                      const isFilmSelected = selectedFilm === filmTitle;
+                      return `
+                        <button 
+                          data-film="${filmTitle}"
+                          class="film-link w-full text-left px-2 py-1 rounded-lg text-[10px] font-medium transition-all flex items-center justify-between cursor-pointer ${
+                            isFilmSelected 
+                              ? 'bg-pink-500 text-white font-bold shadow-xs' 
+                              : 'text-slate-600 hover:bg-blush-100/60 hover:text-pink-700'
+                          }"
+                        >
+                          <span>• ${filmTitle}</span>
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+                `).join('')}
+              </div>
+            `;
+          }
+
+          return `
+            <div>
+              <button 
+                data-era="${node.era}"
+                data-sub="${sub}"
+                class="subcategory-link w-full text-left px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all flex items-center justify-between cursor-pointer ${
+                  isSubSelected 
+                    ? 'bg-gradient-to-r from-pink-400 to-blush-500 text-white shadow-xs font-bold' 
+                    : 'text-slate-600 hover:bg-blush-100/60 hover:text-pink-700'
+                }"
+              >
+                <span class="flex items-center gap-1.5 pointer-events-none">
+                  <span class="text-[9px] ${isSubSelected ? 'text-white' : 'text-blush-400'}">↳</span>
+                  <span>${sub}</span>
+                </span>
+                <span class="text-[9px] opacity-80 pointer-events-none">(${subCount})</span>
+              </button>
+              ${nestedHtml}
+            </div>
+          `;
+        }).join('');
+
         eraItem.innerHTML = `
           <div class="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-blush-50/70 transition-colors ${isOpen ? 'bg-blush-50/60 font-bold' : ''}">
             <button class="era-filter-btn flex-1 text-left flex items-center justify-between pr-2 text-xs font-bold text-slate-700 hover:text-pink-600 cursor-pointer">
-              <span class="flex items-center gap-1.5">
+              <span class="flex items-center gap-1.5 pointer-events-none">
                 <span class="w-1.5 h-1.5 rounded-full ${isOpen ? 'bg-pink-500 ring-2 ring-pink-200' : 'bg-slate-300'}"></span>
                 <span>${node.era}</span>
               </span>
-              <span class="text-[10px] text-slate-400 font-semibold">(${eraCount})</span>
+              <span class="text-[10px] text-slate-400 font-semibold pointer-events-none">(${eraCount})</span>
             </button>
             <button class="accordion-toggle-btn p-1 text-slate-400 hover:text-pink-500 transition-transform ${isOpen ? 'rotate-180' : ''} cursor-pointer" title="Toggle subcategories">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
           </div>
 
           <div class="accordion-content ${isOpen ? 'open' : ''} px-2 pb-2 pt-1 border-t border-blush-50 bg-pink-50/20 space-y-1">
-            ${node.subcategories.map(sub => {
-              const subCount = photos.filter(p => p.era === node.era && p.subcategory && p.subcategory.toLowerCase() === sub.toLowerCase()).length;
-              const isSubSelected = (selectedEra === node.era && selectedSubcategory && selectedSubcategory.toLowerCase() === sub.toLowerCase());
-
-              return `
-                <button 
-                  data-era="${node.era}"
-                  data-sub="${sub}"
-                  class="subcategory-link w-full text-left px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all flex items-center justify-between cursor-pointer ${
-                    isSubSelected 
-                      ? 'bg-gradient-to-r from-pink-400 to-blush-500 text-white shadow-xs font-bold' 
-                      : 'text-slate-600 hover:bg-blush-100/60 hover:text-pink-700'
-                  }"
-                >
-                  <span class="flex items-center gap-1.5">
-                    <span class="text-[9px] ${isSubSelected ? 'text-white' : 'text-blush-400'}">↳</span>
-                    <span>${sub}</span>
-                  </span>
-                  <span class="text-[9px] opacity-80">(${subCount})</span>
-                </button>
-              `;
-            }).join('')}
+            ${subcategoriesHtml}
           </div>
         `;
 
-        eraItem.querySelector('.era-filter-btn').onclick = () => { navigateToFilter(node.era, null, null); closeMobileMenu(); };
+        eraItem.querySelector('.era-filter-btn').onclick = () => { navigateToFilter(node.era, null, null, null); closeMobileMenu(); };
         eraItem.querySelector('.accordion-toggle-btn').onclick = (e) => {
           e.stopPropagation();
           const content = eraItem.querySelector('.accordion-content');
@@ -1215,7 +1267,15 @@
         eraItem.querySelectorAll('.subcategory-link').forEach(btn => {
           btn.onclick = (e) => {
             e.stopPropagation();
-            navigateToFilter(btn.getAttribute('data-era'), btn.getAttribute('data-sub'), null);
+            navigateToFilter(btn.getAttribute('data-era'), btn.getAttribute('data-sub'), null, null);
+            closeMobileMenu();
+          };
+        });
+
+        eraItem.querySelectorAll('.film-link').forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            navigateToFilter('1917–1920', 'Arbuckle Shorts', null, btn.getAttribute('data-film'));
             closeMobileMenu();
           };
         });
@@ -1249,7 +1309,7 @@
           isCurrent ? 'bg-sky-400 text-white border-sky-400' : 'bg-white text-slate-600 border-blush-200 hover:bg-blush-50'
         }`;
         pill.textContent = `#${tag}`;
-        pill.onclick = () => { navigateToFilter(null, null, tag); closeMobileMenu(); };
+        pill.onclick = () => { navigateToFilter(null, null, tag, null); closeMobileMenu(); };
         container.appendChild(pill);
       });
     }
@@ -1259,6 +1319,7 @@
       if (selectedEra) list = list.filter(p => p.era === selectedEra);
       if (selectedSubcategory) list = list.filter(p => p.subcategory && p.subcategory.toLowerCase() === selectedSubcategory.toLowerCase());
       if (selectedTag) list = list.filter(p => p.tags && p.tags.some(t => t.toLowerCase() === selectedTag.toLowerCase()));
+      if (selectedFilm) list = list.filter(p => p.title.toLowerCase().includes(selectedFilm.toLowerCase()) || (p.film && p.film.toLowerCase().includes(selectedFilm.toLowerCase())));
       if (filterFavoritesOnly) list = list.filter(p => p.isLiked);
       if (currentSearchTerm.trim()) {
         const q = currentSearchTerm.toLowerCase().trim();
@@ -1287,11 +1348,11 @@
       document.getElementById('sidebarTotalBadge').textContent = photos.length;
       document.getElementById('favCountBadge').textContent = photos.filter(p => p.isLiked).length;
 
-      const isFiltered = selectedEra || selectedSubcategory || selectedTag || filterFavoritesOnly || currentSearchTerm;
+      const isFiltered = selectedEra || selectedSubcategory || selectedTag || selectedFilm || filterFavoritesOnly || currentSearchTerm;
       if (isFiltered) {
         banner.classList.remove('hidden');
-        let breadcrumbText = filterFavoritesOnly ? 'Favorites' : (selectedEra ? selectedEra : 'Search');
-        let headingText = filterFavoritesOnly ? 'Loved Buster Keaton Stills ❤️' : (currentSearchTerm ? `Results for "${currentSearchTerm}"` : 'Filtered Archive');
+        let breadcrumbText = filterFavoritesOnly ? 'Favorites' : (selectedFilm ? `Film: ${selectedFilm}` : (selectedEra ? selectedEra : 'Search'));
+        let headingText = filterFavoritesOnly ? 'Loved Buster Keaton Stills ❤️' : (selectedFilm ? `${selectedFilm} (1917)` : (currentSearchTerm ? `Results for "${currentSearchTerm}"` : 'Filtered Archive'));
         breadcrumb.textContent = breadcrumbText;
         heading.textContent = headingText;
         countBadge.textContent = `${items.length} photo${items.length === 1 ? '' : 's'}`;
@@ -1355,7 +1416,7 @@
 
         card.querySelector('.like-btn').onclick = (e) => { e.stopPropagation(); toggleLike(photo.id); };
         card.querySelectorAll('.card-tag-btn').forEach(btn => {
-          btn.onclick = (e) => { e.stopPropagation(); navigateToFilter(null, null, btn.getAttribute('data-tag')); };
+          btn.onclick = (e) => { e.stopPropagation(); navigateToFilter(null, null, btn.getAttribute('data-tag'), null); };
         });
 
         grid.appendChild(card);
@@ -1396,10 +1457,11 @@
       showToast('Removed still from cloud archive', '🗑️');
     }
 
-    function navigateToFilter(era, subcategory, tag) {
+    function navigateToFilter(era, subcategory, tag, film) {
       selectedEra = era;
       selectedSubcategory = subcategory;
       selectedTag = tag;
+      selectedFilm = film;
       currentSearchTerm = '';
       document.getElementById('searchInput').value = '';
       renderGallery();
@@ -1427,7 +1489,7 @@
           const pill = document.createElement('button');
           pill.className = 'text-xs font-bold px-2 py-0.5 rounded-lg bg-pink-50 text-pink-600 hover:bg-pink-100 border border-pink-200 cursor-pointer';
           pill.textContent = `#${t}`;
-          pill.onclick = () => { closeLightbox(); navigateToFilter(null, null, t); };
+          pill.onclick = () => { closeLightbox(); navigateToFilter(null, null, t, null); };
           tagsContainer.appendChild(pill);
         });
       }
@@ -1473,11 +1535,11 @@
 
       document.getElementById('homeResetLink').onclick = (e) => {
         e.preventDefault();
-        navigateToFilter(null, null, null);
+        navigateToFilter(null, null, null, null);
       };
 
       document.getElementById('sidebarAllLink').onclick = () => {
-        navigateToFilter(null, null, null);
+        navigateToFilter(null, null, null, null);
         closeMobileMenu();
       };
 
@@ -1637,7 +1699,6 @@
         document.getElementById('tabUploadDevice').className = 'px-2.5 py-0.5 rounded-lg text-slate-500 hover:text-slate-800 transition-all cursor-pointer';
       };
 
-      // Direct click handler for the drop zone to reliably open file explorer
       const dropZone = document.getElementById('dropZone');
       const fileInput = document.getElementById('deviceFileInput');
       dropZone.onclick = () => {
