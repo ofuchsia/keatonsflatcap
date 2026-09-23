@@ -674,13 +674,13 @@
     </div>
   </div>
 
-  <!-- Edit Photo Modal -->
+  <!-- Edit Photo Modal (z-100 container / z-105 card so it renders above lightbox) -->
   <div 
     id="editPhotoModal" 
-    class="fixed inset-0 z-92 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    class="fixed inset-0 z-100 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
     role="dialog"
   >
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-95">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-105">
       
       <div class="flex items-center justify-between mb-3 border-b border-blush-100 pb-2">
         <div class="flex items-center gap-1.5 font-cute font-bold text-slate-800 text-sm">
@@ -1880,7 +1880,14 @@
         document.getElementById('editTags').value = photo.tags ? photo.tags.join(', ') : '';
         document.getElementById('editDesc').value = photo.desc || '';
 
+        // Hide lightbox smoothly and pop open the edit modal cleanly on top
+        const lbModal = document.getElementById('lightboxModal');
+        lbModal.classList.add('opacity-0', 'pointer-events-none');
+
         editModal.classList.remove('opacity-0', 'pointer-events-none');
+        const editCard = editModal.querySelector('div');
+        editCard.classList.remove('scale-95');
+        editCard.classList.add('scale-100');
       };
 
       // Cascade change listeners for Add and Edit forms
