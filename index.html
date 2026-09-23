@@ -411,7 +411,7 @@
         />
       </div>
 
-      <!-- Active Filter Banner Header (Subtitle removed) -->
+      <!-- Active Filter Banner Header -->
       <div id="filterBanner" class="mb-4 glass-panel rounded-3xl p-4 sm:p-5 relative overflow-hidden border border-blush-200 bg-gradient-to-r from-pink-50/70 via-white to-sky-50/70 hidden">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
           <div>
@@ -674,7 +674,7 @@
     </div>
   </div>
 
-  <!-- Edit Photo Modal (Fixed: z-92 container and z-95 card so it sits cleanly above lightbox) -->
+  <!-- Edit Photo Modal -->
   <div 
     id="editPhotoModal" 
     class="fixed inset-0 z-92 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
@@ -716,16 +716,14 @@
           </div>
         </div>
 
+        <!-- Dynamic Sub-Item Selector for Edit -->
+        <div id="editSubItemWrapper" class="hidden">
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Specific Film / Item</label>
+          <select id="editSubItemSelect" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white"></select>
+        </div>
+
         <div>
-          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year</label>
-          <select id="editYearSelect" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white mb-1.5">
-            <option value="">-- Or select specific Arbuckle film --</option>
-            <option value="The Butcher Boy - 1917">The Butcher Boy - 1917</option>
-            <option value="The Rough House - 1917">The Rough House - 1917</option>
-            <option value="His Wedding Night - 1917">His Wedding Night - 1917</option>
-            <option value="Oh Doctor! - 1917">Oh Doctor! - 1917</option>
-            <option value="A Country Hero - 1917">A Country Hero - 1917</option>
-          </select>
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year *</label>
           <input type="text" id="editYear" placeholder="e.g., The General (1926)" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
         </div>
 
@@ -747,7 +745,7 @@
     </div>
   </div>
 
-  <!-- Add Photo Modal (z-80) -->
+  <!-- Add Photo Modal -->
   <div 
     id="addPhotoModal" 
     class="fixed inset-0 z-80 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
@@ -822,16 +820,14 @@
           </div>
         </div>
 
+        <!-- Dynamic Sub-Item Selector for Add -->
+        <div id="newSubItemWrapper" class="hidden">
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Specific Film / Item</label>
+          <select id="newSubItemSelect" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white"></select>
+        </div>
+
         <div>
-          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year</label>
-          <select id="newYearSelect" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white mb-1.5">
-            <option value="">-- Or select specific Arbuckle film --</option>
-            <option value="The Butcher Boy - 1917">The Butcher Boy - 1917</option>
-            <option value="The Rough House - 1917">The Rough House - 1917</option>
-            <option value="His Wedding Night - 1917">His Wedding Night - 1917</option>
-            <option value="Oh Doctor! - 1917">Oh Doctor! - 1917</option>
-            <option value="A Country Hero - 1917">A Country Hero - 1917</option>
-          </select>
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year *</label>
           <input type="text" id="newYear" placeholder="e.g., The General (1926)" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
         </div>
 
@@ -1032,7 +1028,7 @@
       photoToDeleteId = null;
     };
 
-    function populateSubcategoryDropdown(eraValue, targetSelectId = 'newSubcategory') {
+    function populateSubcategoryDropdown(eraValue, targetSelectId = 'newSubcategory', targetPrefix = 'new') {
       const subSelect = document.getElementById(targetSelectId);
       if (!subSelect) return;
       subSelect.innerHTML = '';
@@ -1044,6 +1040,42 @@
           opt.textContent = sub;
           subSelect.appendChild(opt);
         });
+      }
+      updateSubItemDropdown(eraValue, subSelect.value, targetPrefix);
+    }
+
+    function updateSubItemDropdown(eraValue, subcategoryValue, prefix = 'new') {
+      const wrapper = document.getElementById(`${prefix}SubItemWrapper`);
+      const select = document.getElementById(`${prefix}SubItemSelect`);
+      
+      if (!wrapper || !select) return;
+
+      const matchedNode = CHRONOLOGY_TREE.find(n => n.era === eraValue);
+      let nestedList = [];
+
+      if (matchedNode && matchedNode.nestedSubcategories && matchedNode.nestedSubcategories[subcategoryValue]) {
+        const groupData = matchedNode.nestedSubcategories[subcategoryValue];
+        groupData.forEach(group => {
+          if (group.films) {
+            group.films.forEach(film => {
+              nestedList.push(`${film} - ${group.year}`);
+            });
+          }
+        });
+      }
+
+      if (nestedList.length > 0) {
+        select.innerHTML = '<option value="">-- Select specific item --</option>';
+        nestedList.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item;
+          opt.textContent = item;
+          select.appendChild(opt);
+        });
+        wrapper.classList.remove('hidden');
+      } else {
+        wrapper.classList.add('hidden');
+        select.innerHTML = '';
       }
     }
 
@@ -1466,7 +1498,7 @@
       if (isFiltered) {
         banner.classList.remove('hidden');
         let breadcrumbText = filterFavoritesOnly ? 'Favorites' : (selectedFilm ? `Film: ${selectedFilm}` : (selectedEra ? selectedEra : 'Search'));
-        let headingText = filterFavoritesOnly ? 'Loved Buster Keaton Stills ❤️' : (selectedFilm ? `${selectedFilm} (1917)` : (currentSearchTerm ? `Results for "${currentSearchTerm}"` : 'Filtered Archive'));
+        let headingText = filterFavoritesOnly ? 'Loved Buster Keaton Stills ❤️' : (selectedFilm ? `${selectedFilm}` : (currentSearchTerm ? `Results for "${currentSearchTerm}"` : 'Filtered Archive'));
         breadcrumb.textContent = breadcrumbText;
         heading.textContent = headingText;
         countBadge.textContent = `${items.length} photo${items.length === 1 ? '' : 's'}`;
@@ -1821,14 +1853,14 @@
       const addModal = document.getElementById('addPhotoModal');
       document.getElementById('openAddModalBtn').onclick = () => {
         const eraVal = document.getElementById('newEra').value;
-        populateSubcategoryDropdown(eraVal, 'newSubcategory');
+        populateSubcategoryDropdown(eraVal, 'newSubcategory', 'new');
         addModal.classList.remove('opacity-0');
         addModal.classList.remove('pointer-events-none');
       };
       document.getElementById('closeAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
       document.getElementById('cancelAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
 
-      // Edit Modal bindings (Fixed z-92 container / z-95 card so it appears correctly above lightbox)
+      // Edit Modal bindings
       const editModal = document.getElementById('editPhotoModal');
       document.getElementById('closeEditModalBtn').onclick = () => editModal.classList.add('opacity-0', 'pointer-events-none');
       document.getElementById('cancelEditModalBtn').onclick = () => editModal.classList.add('opacity-0', 'pointer-events-none');
@@ -1841,8 +1873,9 @@
         document.getElementById('editPhotoId').value = photo.id;
         document.getElementById('editTitle').value = photo.title || '';
         document.getElementById('editEra').value = photo.era || '1920–1928';
-        populateSubcategoryDropdown(photo.era || '1920–1928', 'editSubcategory');
+        populateSubcategoryDropdown(photo.era || '1920–1928', 'editSubcategory', 'edit');
         document.getElementById('editSubcategory').value = photo.subcategory || '';
+        updateSubItemDropdown(photo.era || '1920–1928', photo.subcategory || '', 'edit');
         document.getElementById('editYear').value = photo.film || photo.year || '';
         document.getElementById('editTags').value = photo.tags ? photo.tags.join(', ') : '';
         document.getElementById('editDesc').value = photo.desc || '';
@@ -1850,15 +1883,32 @@
         editModal.classList.remove('opacity-0', 'pointer-events-none');
       };
 
-      document.getElementById('editEra').addEventListener('change', (e) => populateSubcategoryDropdown(e.target.value, 'editSubcategory'));
+      // Cascade change listeners for Add and Edit forms
+      document.getElementById('newEra').addEventListener('change', (e) => {
+        populateSubcategoryDropdown(e.target.value, 'newSubcategory', 'new');
+      });
+      document.getElementById('newSubcategory').addEventListener('change', (e) => {
+        const eraVal = document.getElementById('newEra').value;
+        updateSubItemDropdown(eraVal, e.target.value, 'new');
+      });
+      document.getElementById('newSubItemSelect').addEventListener('change', (e) => {
+        if (e.target.value) {
+          document.getElementById('newYear').value = e.target.value;
+        }
+      });
 
-      // Quick film selector sync for Add and Edit forms
-      document.getElementById('newYearSelect').onchange = (e) => {
-        if (e.target.value) document.getElementById('newYear').value = e.target.value;
-      };
-      document.getElementById('editYearSelect').onchange = (e) => {
-        if (e.target.value) document.getElementById('editYear').value = e.target.value;
-      };
+      document.getElementById('editEra').addEventListener('change', (e) => {
+        populateSubcategoryDropdown(e.target.value, 'editSubcategory', 'edit');
+      });
+      document.getElementById('editSubcategory').addEventListener('change', (e) => {
+        const eraVal = document.getElementById('editEra').value;
+        updateSubItemDropdown(eraVal, e.target.value, 'edit');
+      });
+      document.getElementById('editSubItemSelect').addEventListener('change', (e) => {
+        if (e.target.value) {
+          document.getElementById('editYear').value = e.target.value;
+        }
+      });
 
       document.getElementById('editPhotoForm').onsubmit = async (e) => {
         e.preventDefault();
@@ -1910,8 +1960,6 @@
         fileInput.value = '';
       };
 
-      document.getElementById('newEra').addEventListener('change', (e) => populateSubcategoryDropdown(e.target.value, 'newSubcategory'));
-
       document.getElementById('addPhotoForm').onsubmit = async (e) => {
         e.preventDefault();
         if (isUploading) return;
@@ -1951,7 +1999,7 @@
       bindEventListeners();
       initFirebaseSync();
       updateIntertitleCardStyle();
-      populateSubcategoryDropdown('1920–1928', 'newSubcategory');
+      populateSubcategoryDropdown('1920–1928', 'newSubcategory', 'new');
     });
   </script>
 </body>
