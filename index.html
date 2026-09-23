@@ -183,6 +183,17 @@
     .accordion-content.open {
       max-height: 280px;
     }
+
+    /* Paper Doll Drag Item Styling */
+    .draggable-item {
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      transition: transform 0.15s ease;
+    }
+    .draggable-item:active {
+      cursor: grabbing;
+    }
   </style>
 </head>
 
@@ -209,7 +220,7 @@
         </button>
 
         <div class="flex items-center gap-2.5 select-none">
-          <!-- Porkpie Hat Button: Toggles "Stone Face" Nitrate Mode -->
+          <!-- Porkpie Hat Button -->
           <button 
             id="porkpieModeBtn" 
             title="Click Buster's Hat to toggle 1920s Nitrate Film Mode!" 
@@ -229,7 +240,7 @@
             </svg>
           </button>
 
-          <!-- Site Title / Home Reset Trigger -->
+          <!-- Site Title -->
           <a href="#all" class="group flex flex-col">
             <div class="flex items-center gap-2">
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-blush-500 bg-blush-50 px-2 py-0.5 rounded-full border border-blush-200">
@@ -266,7 +277,7 @@
           <button id="clearSearchBtn" class="hidden absolute right-2.5 top-2 text-xs text-slate-400 hover:text-slate-600 cursor-pointer">✕</button>
         </div>
 
-        <!-- Add Photo Button (Hidden until logged in as Admin) -->
+        <!-- Add Photo Button -->
         <button 
           id="openAddModalBtn"
           class="hidden flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-gradient-to-r from-blush-400 via-pink-400 to-babyblue-400 text-white shadow hover:shadow-md hover:opacity-95 transition-all transform active:scale-95 cursor-pointer"
@@ -288,7 +299,7 @@
           <span id="favCountBadge" class="text-xs font-extrabold text-slate-700 pointer-events-none">0</span>
         </button>
 
-        <!-- Admin Login / Status Button (Always visible) -->
+        <!-- Admin Login Button -->
         <button 
           id="adminAuthBtn"
           class="flex items-center gap-1 px-3 py-1.5 sm:py-2 text-xs font-bold rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all shadow-xs cursor-pointer"
@@ -366,7 +377,7 @@
               id="openDollMakerBtn"
               class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-blush-200 hover:bg-blush-50 hover:text-pink-600 transition-all flex items-center gap-2 cursor-pointer"
             >
-              <span>🎩</span> Keaton Paper Doll Maker
+              <span>✂️</span> Keaton Paper Doll Studio
             </button>
 
             <!-- Vintage Tint Toggles -->
@@ -478,8 +489,8 @@
       </div>
 
       <div class="space-y-4">
-        <!-- Live Intertitle Preview Card with Dynamic Color & Border Styling -->
-        <div id="intertitleCardPreview" class="w-full bg-neutral-950 border-4 border-neutral-800 rounded-2xl p-6 shadow-inner text-center relative overflow-hidden min-h-[160px] flex items-center justify-center transition-all">
+        <!-- Live Intertitle Preview Card -->
+        <div id="intertitleCardPreview" class="w-full bg-[#201812] border-4 border-neutral-800 rounded-2xl p-6 shadow-inner text-center relative overflow-hidden min-h-[160px] flex items-center justify-center transition-all">
           <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none"></div>
           <p id="intertitlePreviewText" class="font-intertitle text-amber-100 text-base sm:text-lg tracking-widest uppercase leading-relaxed drop-shadow-md px-4">
             WHEN YOU MISS THE TRAIN TO MUSKEGON...
@@ -538,43 +549,55 @@
     </div>
   </div>
 
-  <!-- Buster Keaton Paper Doll Maker Modal -->
+  <!-- Buster Keaton Paper Doll Studio Modal -->
   <div 
     id="dollMakerModal" 
     class="fixed inset-0 z-80 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
     role="dialog"
   >
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 relative z-90 text-center">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 relative z-90 text-center">
       <div class="flex items-center justify-between mb-4 border-b border-blush-100 pb-3">
         <div class="flex items-center gap-2">
-          <span class="text-xl">🎩</span>
-          <h3 class="font-cute font-bold text-slate-800 text-base">Buster's Dressing Room</h3>
+          <span class="text-xl">✂️</span>
+          <h3 class="font-cute font-bold text-slate-800 text-base">Buster Keaton Paper Doll Studio</h3>
         </div>
         <button id="closeDollMakerModal" type="button" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer">✕</button>
       </div>
 
+      <p class="text-xs text-slate-500 mb-3">Click or tap any outfit below to dress Buster in his classic cinematic attire!</p>
+
       <!-- Doll Stage -->
-      <div class="bg-gradient-to-b from-sky-50 to-pink-50 rounded-2xl p-6 border border-blush-200 mb-4 flex flex-col items-center justify-center relative min-h-[220px]">
-        <div id="dollAvatar" class="text-6xl mb-2 transition-transform duration-300 animate-gentle-float">🎩</div>
+      <div class="bg-gradient-to-b from-stone-100 to-amber-50 rounded-3xl p-6 border-2 border-dashed border-stone-300 mb-4 flex flex-col items-center justify-center relative min-h-[240px] shadow-inner">
+        <!-- Paper Doll Hanging Tabs (Visual effect) -->
+        <div class="absolute top-2 left-1/2 -translate-x-1/2 flex gap-12 opacity-60">
+          <div class="w-6 h-4 bg-stone-300 rounded-t-sm border border-stone-400"></div>
+          <div class="w-6 h-4 bg-stone-300 rounded-t-sm border border-stone-400"></div>
+        </div>
+
+        <div id="dollAvatar" class="text-7xl mb-2 transition-all duration-300 animate-gentle-float">🎩</div>
         <h4 id="dollOutfitTitle" class="font-cute font-bold text-slate-800 text-sm">The Classic Porkpie & Suit</h4>
         <p id="dollOutfitDesc" class="text-[11px] text-slate-500 mt-0.5">Always ready for a high-speed chase or an awkward social encounter.</p>
       </div>
 
-      <!-- Outfit Closet Selection -->
-      <div class="space-y-2">
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Choose an Outfit</span>
-        <div class="grid grid-cols-2 gap-2">
-          <button data-outfit="suit" class="doll-outfit-btn px-3 py-2 rounded-xl text-xs font-bold bg-blush-50 text-blush-700 border border-blush-200 hover:bg-blush-100 transition-all cursor-pointer">
-            🎩 Classic Suit
+      <!-- Outfit Selection Rack -->
+      <div class="space-y-2 text-left">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Wardrobe Rack</span>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button data-outfit="suit" class="doll-outfit-btn px-3 py-2.5 rounded-2xl text-xs font-bold bg-blush-50 text-blush-700 border-2 border-blush-300 hover:bg-blush-100 transition-all cursor-pointer flex flex-col items-center gap-1 shadow-xs">
+            <span class="text-lg">🎩</span>
+            <span>Classic Suit</span>
           </button>
-          <button data-outfit="general" class="doll-outfit-btn px-3 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-blush-200 hover:bg-blush-50 transition-all cursor-pointer">
-            🚂 The General
+          <button data-outfit="general" class="doll-outfit-btn px-3 py-2.5 rounded-2xl text-xs font-bold bg-white text-slate-700 border-2 border-stone-200 hover:bg-stone-50 transition-all cursor-pointer flex flex-col items-center gap-1 shadow-xs">
+            <span class="text-lg">🚂</span>
+            <span>The General</span>
           </button>
-          <button data-outfit="tuxedo" class="doll-outfit-btn px-3 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-blush-200 hover:bg-blush-50 transition-all cursor-pointer">
-            🤵 High Society Tux
+          <button data-outfit="boxing" class="doll-outfit-btn px-3 py-2.5 rounded-2xl text-xs font-bold bg-white text-slate-700 border-2 border-stone-200 hover:bg-stone-50 transition-all cursor-pointer flex flex-col items-center gap-1 shadow-xs">
+            <span class="text-lg">🥊</span>
+            <span>Battling Butler</span>
           </button>
-          <button data-outfit="sailor" class="doll-outfit-btn px-3 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-blush-200 hover:bg-blush-50 transition-all cursor-pointer">
-            ⛵ Navigator Rig
+          <button data-outfit="sailor" class="doll-outfit-btn px-3 py-2.5 rounded-2xl text-xs font-bold bg-white text-slate-700 border-2 border-stone-200 hover:bg-stone-50 transition-all cursor-pointer flex flex-col items-center gap-1 shadow-xs">
+            <span class="text-lg">⛵</span>
+            <span>The Navigator</span>
           </button>
         </div>
       </div>
@@ -1027,10 +1050,8 @@
       const tone = document.getElementById('intertitleToneSelect').value;
       const border = document.getElementById('intertitleBorderSelect').value;
 
-      // Reset tone classes
       card.className = card.className.replace(/bg-\S+/g, '').replace(/border-\S+/g, '');
       
-      // Apply Tone
       if (tone === 'bw') {
         card.classList.add('bg-neutral-900', 'text-white');
       } else if (tone === 'sepia') {
@@ -1039,7 +1060,6 @@
         card.classList.add('bg-[#101b2b]', 'text-sky-100');
       }
 
-      // Apply Border Style
       if (border === 'double') {
         card.style.border = '4px double rgba(255,255,255,0.7)';
       } else if (border === 'ornate') {
@@ -1505,22 +1525,42 @@
       };
 
       const dollOutfits = {
-        suit: { emoji: '🎩', title: 'The Classic Porkpie & Suit', desc: 'Always ready for a high-speed chase or an awkward social encounter.' },
-        general: { emoji: '🚂', title: 'The General Uniform', desc: 'Equipped with a Confederate cap, ready to chase down stolen locomotives.' },
-        tuxedo: { emoji: '🤵', title: 'High Society Tuxedo', desc: 'Dressed to the nines for gala premieres and formal pratfalls.' },
-        sailor: { emoji: '⛵', title: 'The Navigator Rig', desc: 'Prepared to sail unnavigable waters with total deadpan poise.' }
+        suit: { 
+          avatar: '🤵', 
+          title: 'The Classic Porkpie & Suit', 
+          desc: 'Always ready for a high-speed chase or an awkward social encounter.' 
+        },
+        general: { 
+          avatar: '🚂', 
+          title: 'The General Uniform', 
+          desc: 'Equipped with a Confederate cap, ready to chase down stolen locomotives.' 
+        },
+        boxing: { 
+          avatar: '🥊', 
+          title: 'Battling Butler Gear', 
+          desc: 'Dressed in tank top and boxing shorts with giant gloves ready for the ring.' 
+        },
+        sailor: { 
+          avatar: '⛵', 
+          title: 'The Navigator Rig', 
+          desc: 'Prepared to sail unnavigable waters with total deadpan poise.' 
+        }
       };
 
       document.querySelectorAll('.doll-outfit-btn').forEach(btn => {
         btn.onclick = () => {
-          document.querySelectorAll('.doll-outfit-btn').forEach(b => b.classList.replace('bg-blush-50', 'bg-white'));
-          document.querySelectorAll('.doll-outfit-btn').forEach(b => b.classList.replace('text-blush-700', 'text-slate-700'));
+          document.querySelectorAll('.doll-outfit-btn').forEach(b => {
+            b.classList.replace('bg-blush-50', 'bg-white');
+            b.classList.replace('text-blush-700', 'text-slate-700');
+            b.classList.replace('border-blush-300', 'border-stone-200');
+          });
           btn.classList.replace('bg-white', 'bg-blush-50');
           btn.classList.replace('text-slate-700', 'text-blush-700');
+          btn.classList.replace('border-stone-200', 'border-blush-300');
 
           const outfitKey = btn.getAttribute('data-outfit');
           const data = dollOutfits[outfitKey];
-          document.getElementById('dollAvatar').textContent = data.emoji;
+          document.getElementById('dollAvatar').textContent = data.avatar;
           document.getElementById('dollOutfitTitle').textContent = data.title;
           document.getElementById('dollOutfitDesc').textContent = data.desc;
         };
