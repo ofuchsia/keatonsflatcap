@@ -1658,6 +1658,29 @@
       document.getElementById('closeMobileSidebar').onclick = closeMobileMenu;
       document.getElementById('mobileBackdrop').onclick = closeMobileMenu;
 
+      // Lightbox Navigation Arrows (Previous / Next)
+      document.getElementById('lbPrevBtn').onclick = () => {
+        if (!currentLightboxPhotoId) return;
+        const currentList = getFilteredPhotos();
+        const currentIndex = currentList.findIndex(p => p.id === currentLightboxPhotoId);
+        if (currentIndex > 0) {
+          openLightbox(currentList[currentIndex - 1].id);
+        } else if (currentList.length > 0) {
+          openLightbox(currentList[currentList.length - 1].id); // Loop to last
+        }
+      };
+
+      document.getElementById('lbNextBtn').onclick = () => {
+        if (!currentLightboxPhotoId) return;
+        const currentList = getFilteredPhotos();
+        const currentIndex = currentList.findIndex(p => p.id === currentLightboxPhotoId);
+        if (currentIndex !== -1 && currentIndex < currentList.length - 1) {
+          openLightbox(currentList[currentIndex + 1].id);
+        } else if (currentList.length > 0) {
+          openLightbox(currentList[0].id); // Loop to first
+        }
+      };
+
       // Intertitle Generator bindings
       const intertitleModal = document.getElementById('intertitleModal');
       document.getElementById('openIntertitleBtn').onclick = () => {
