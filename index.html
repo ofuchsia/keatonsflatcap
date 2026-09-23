@@ -1177,14 +1177,16 @@
         let subcategoriesHtml = node.subcategories.map(sub => {
           const subCount = photos.filter(p => p.era === node.era && p.subcategory && p.subcategory.toLowerCase() === sub.toLowerCase()).length;
           const isSubSelected = (selectedEra === node.era && selectedSubcategory && selectedSubcategory.toLowerCase() === sub.toLowerCase() && !selectedFilm);
+          const isArbuckleShorts = (sub === 'Arbuckle Shorts' && node.era === '1917–1920');
+          const isArbuckleOpen = isArbuckleShorts && selectedSubcategory === 'Arbuckle Shorts';
 
           let nestedHtml = '';
           if (node.nestedSubcategories && node.nestedSubcategories[sub]) {
             const nestedData = node.nestedSubcategories[sub];
             nestedHtml = `
-              <div class="pl-4 pt-1 space-y-1">
+              <div class="sub-accordion-content ${isArbuckleOpen ? 'open' : ''} pl-4 pt-1 space-y-1">
                 ${nestedData.map(group => `
-                  <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider py-0.5">${group.year}</div>
+                  <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider py-0.5">• ${group.year}</div>
                   <div class="pl-2 space-y-1 border-l-2 border-pink-200">
                     ${group.films.map(filmTitle => {
                       const isFilmSelected = selectedFilm === filmTitle;
@@ -1197,7 +1199,7 @@
                               : 'text-slate-600 hover:bg-blush-100/60 hover:text-pink-700'
                           }"
                         >
-                          <span>• ${filmTitle}</span>
+                          <span>- ${filmTitle}</span>
                         </button>
                       `;
                     }).join('')}
@@ -1213,7 +1215,7 @@
                 data-era="${node.era}"
                 data-sub="${sub}"
                 class="subcategory-link w-full text-left px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all flex items-center justify-between cursor-pointer ${
-                  isSubSelected 
+                  isSubSelected && !isArbuckleOpen
                     ? 'bg-gradient-to-r from-pink-400 to-blush-500 text-white shadow-xs font-bold' 
                     : 'text-slate-600 hover:bg-blush-100/60 hover:text-pink-700'
                 }"
@@ -1267,8 +1269,16 @@
         eraItem.querySelectorAll('.subcategory-link').forEach(btn => {
           btn.onclick = (e) => {
             e.stopPropagation();
-            navigateToFilter(btn.getAttribute('data-era'), btn.getAttribute('data-sub'), null, null);
-            closeMobileMenu();
+            const era = btn.getAttribute('data-era');
+            const sub = btn.getAttribute('data-sub');
+            if (sub === 'Arbuckle Shorts') {
+              // Toggle sub-accordion
+              const subContent = btn.nextElementSibling;
+              if (subContent && subContent.classList.contains('sub-accordion-content')) {
+                subContent.classList.toggle('open');
+              }
+            }
+            navigateToFilter(era, sub, null, null);
           };
         });
 
