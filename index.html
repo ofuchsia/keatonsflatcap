@@ -593,7 +593,7 @@
           <p id="lightboxYear" class="text-xs font-semibold text-slate-400 mb-3">Year / Film context</p>
 
           <p id="lightboxDescription" class="text-slate-600 text-xs leading-relaxed mb-4">
-            Archival historical context notes.
+            <!-- Description notes -->
           </p>
 
           <div class="mb-4">
@@ -680,10 +680,10 @@
   <!-- Edit Photo Modal -->
   <div 
     id="editPhotoModal" 
-    class="fixed inset-0 z-80 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    class="fixed inset-0 z-92 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
     role="dialog"
   >
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-85">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-95">
       
       <div class="flex items-center justify-between mb-3 border-b border-blush-100 pb-2">
         <div class="flex items-center gap-1.5 font-cute font-bold text-slate-800 text-sm">
@@ -721,7 +721,15 @@
 
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year</label>
-          <input type="text" id="editYear" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+          <select id="editYearSelect" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white mb-1.5">
+            <option value="">-- Or select specific Arbuckle film --</option>
+            <option value="The Butcher Boy - 1917">The Butcher Boy - 1917</option>
+            <option value="The Rough House - 1917">The Rough House - 1917</option>
+            <option value="His Wedding Night - 1917">His Wedding Night - 1917</option>
+            <option value="Oh Doctor! - 1917">Oh Doctor! - 1917</option>
+            <option value="A Country Hero - 1917">A Country Hero - 1917</option>
+          </select>
+          <input type="text" id="editYear" placeholder="e.g., The General (1926)" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
         </div>
 
         <div>
@@ -819,6 +827,14 @@
 
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year</label>
+          <select id="newYearSelect" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white mb-1.5">
+            <option value="">-- Or select specific Arbuckle film --</option>
+            <option value="The Butcher Boy - 1917">The Butcher Boy - 1917</option>
+            <option value="The Rough House - 1917">The Rough House - 1917</option>
+            <option value="His Wedding Night - 1917">His Wedding Night - 1917</option>
+            <option value="Oh Doctor! - 1917">Oh Doctor! - 1917</option>
+            <option value="A Country Hero - 1917">A Country Hero - 1917</option>
+          </select>
           <input type="text" id="newYear" placeholder="e.g., The General (1926)" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
         </div>
 
@@ -1359,7 +1375,15 @@
             if (sub === 'Arbuckle Shorts') {
               const subContent = btn.nextElementSibling;
               if (subContent && subContent.classList.contains('sub-accordion-content')) {
-                subContent.classList.toggle('open');
+                // Toggle minimize / expand
+                const isAlreadyOpen = subContent.classList.contains('open');
+                if (isAlreadyOpen) {
+                  subContent.classList.remove('open');
+                  navigateToFilter(era, null, null, null); // Clear subcategory filter if minimized
+                  return;
+                } else {
+                  subContent.classList.add('open');
+                }
               }
             }
             navigateToFilter(era, sub, null, null);
@@ -1567,11 +1591,8 @@
       currentLightboxPhotoId = photoId;
       document.getElementById('lightboxImage').src = photo.url;
       document.getElementById('lightboxTitle').textContent = photo.title;
-      
-      // Fixed: Only display the film/year once to prevent duplication like "The Rough House - 1917 • The Rough House - 1917"
       document.getElementById('lightboxYear').textContent = photo.film || photo.year || 'Silent Still';
-      
-      document.getElementById('lightboxDescription').textContent = photo.desc || 'Rare archival still of Buster Keaton.';
+      document.getElementById('lightboxDescription').textContent = photo.desc || '';
       document.getElementById('lightboxEraBadge').textContent = photo.era;
       document.getElementById('lightboxSubcategoryBadge').textContent = photo.subcategory || 'General';
 
@@ -1658,7 +1679,7 @@
       document.getElementById('closeMobileSidebar').onclick = closeMobileMenu;
       document.getElementById('mobileBackdrop').onclick = closeMobileMenu;
 
-      // Lightbox Navigation Arrows (Previous / Next)
+      // Lightbox Navigation Arrows
       document.getElementById('lbPrevBtn').onclick = () => {
         if (!currentLightboxPhotoId) return;
         const currentList = getFilteredPhotos();
@@ -1666,7 +1687,7 @@
         if (currentIndex > 0) {
           openLightbox(currentList[currentIndex - 1].id);
         } else if (currentList.length > 0) {
-          openLightbox(currentList[currentList.length - 1].id); // Loop to last
+          openLightbox(currentList[currentList.length - 1].id);
         }
       };
 
@@ -1677,7 +1698,7 @@
         if (currentIndex !== -1 && currentIndex < currentList.length - 1) {
           openLightbox(currentList[currentIndex + 1].id);
         } else if (currentList.length > 0) {
-          openLightbox(currentList[0].id); // Loop to first
+          openLightbox(currentList[0].id);
         }
       };
 
@@ -1834,6 +1855,14 @@
       };
 
       document.getElementById('editEra').addEventListener('change', (e) => populateSubcategoryDropdown(e.target.value, 'editSubcategory'));
+
+      // Quick film selector sync for Add and Edit forms
+      document.getElementById('newYearSelect').onchange = (e) => {
+        if (e.target.value) document.getElementById('newYear').value = e.target.value;
+      };
+      document.getElementById('editYearSelect').onchange = (e) => {
+        if (e.target.value) document.getElementById('editYear').value = e.target.value;
+      };
 
       document.getElementById('editPhotoForm').onsubmit = async (e) => {
         e.preventDefault();
