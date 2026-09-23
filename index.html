@@ -621,6 +621,16 @@
             <span>🔗</span> Share
           </button>
 
+          <!-- Edit Button (Hidden unless Admin) -->
+          <button 
+            id="lightboxEditBtn"
+            class="hidden px-3 py-2 rounded-full bg-sky-50 hover:bg-sky-100 border border-sky-200 text-sky-600 text-xs font-bold transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+            title="Edit this photo"
+          >
+            <span>✏️</span> Edit
+          </button>
+
+          <!-- Delete Button (Hidden unless Admin) -->
           <button 
             id="lightboxDeleteBtn"
             class="hidden px-3 py-2 rounded-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 text-xs font-bold transition-all flex items-center gap-1 shadow-xs cursor-pointer"
@@ -633,7 +643,7 @@
     </div>
   </div>
 
-  <!-- Delete Confirmation Modal (z-90, sits on top of everything) -->
+  <!-- Delete Confirmation Modal -->
   <div 
     id="deleteConfirmModal"
     class="fixed inset-0 z-90 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200"
@@ -664,6 +674,71 @@
           Delete Still
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Edit Photo Modal -->
+  <div 
+    id="editPhotoModal" 
+    class="fixed inset-0 z-80 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    role="dialog"
+  >
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-5 sm:p-6 border-2 border-blush-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto relative z-85">
+      
+      <div class="flex items-center justify-between mb-3 border-b border-blush-100 pb-2">
+        <div class="flex items-center gap-1.5 font-cute font-bold text-slate-800 text-sm">
+          <span>✏️ Edit Buster Still (Admin)</span>
+        </div>
+        <button id="closeEditModalBtn" type="button" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs cursor-pointer">✕</button>
+      </div>
+
+      <form id="editPhotoForm" class="space-y-3">
+        <input type="hidden" id="editPhotoId" />
+        <div>
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Title *</label>
+          <input type="text" id="editTitle" required class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Era *</label>
+            <select id="editEra" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white">
+              <option value="1895–1917">1895–1917</option>
+              <option value="1917–1920">1917–1920</option>
+              <option value="1920–1928">1920–1928</option>
+              <option value="1929–1933">1929–1933</option>
+              <option value="1933–1941">1933–1941</option>
+              <option value="1941–1955">1941–1955</option>
+              <option value="1955–1966">1955–1966</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Subcategory *</label>
+            <select id="editSubcategory" class="w-full px-2.5 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none bg-white"></select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Film / Year</label>
+          <input type="text" id="editYear" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Tags (Comma-separated)</label>
+          <input type="text" id="editTags" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Notes / Description</label>
+          <textarea id="editDesc" rows="2" class="w-full px-3 py-1.5 text-xs rounded-xl border border-blush-200 focus:ring-2 focus:ring-blush-300 focus:outline-none resize-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" id="cancelEditModalBtn" class="px-4 py-1.5 rounded-full border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 cursor-pointer">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-blush-400 to-babyblue-400 text-white text-xs font-bold shadow hover:opacity-95 cursor-pointer">Save Changes 🌸</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -901,7 +976,7 @@
       {
         id: 'bk-sil-2',
         title: 'Steamboat Bill, Jr. House Facade Fall',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Keaton_Steamboat_Bill_Jr._house_falling.jpg/640px-Keaton_Steamboat_Bill_Jr._house_falling.jpg',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Keaton_Steamboat_Bill_Jr._house_falling.jpg/640px-Buster_Keaton_in_The_General.jpg',
         era: '1895–1917',
         subcategory: 'Silent Films',
         film: 'Steamboat Bill, Jr. (1928)',
@@ -944,8 +1019,9 @@
       photoToDeleteId = null;
     };
 
-    function populateSubcategoryDropdown(eraValue) {
-      const subSelect = document.getElementById('newSubcategory');
+    function populateSubcategoryDropdown(eraValue, targetSelectId = 'newSubcategory') {
+      const subSelect = document.getElementById(targetSelectId);
+      if (!subSelect) return;
       subSelect.innerHTML = '';
       const matchedNode = CHRONOLOGY_TREE.find(n => n.era === eraValue);
       if (matchedNode && matchedNode.subcategories) {
@@ -1111,11 +1187,20 @@
     async function updatePhotoInFirebase(photoObj) {
       try {
         await updateDoc(doc(db, 'keaton_stills', photoObj.id), {
+          title: photoObj.title,
+          era: photoObj.era,
+          subcategory: photoObj.subcategory,
+          film: photoObj.film,
+          year: photoObj.year,
+          tags: photoObj.tags,
+          desc: photoObj.desc,
           likes: photoObj.likes,
           isLiked: photoObj.isLiked
         });
+        showToast(`Updated "${photoObj.title}" successfully!`, '✏️');
       } catch (e) {
         console.error(e);
+        showToast('Permission denied. Admin authentication required.', '❌');
       }
     }
 
@@ -1272,7 +1357,6 @@
             const era = btn.getAttribute('data-era');
             const sub = btn.getAttribute('data-sub');
             if (sub === 'Arbuckle Shorts') {
-              // Toggle sub-accordion
               const subContent = btn.nextElementSibling;
               if (subContent && subContent.classList.contains('sub-accordion-content')) {
                 subContent.classList.toggle('open');
@@ -1483,14 +1567,23 @@
       currentLightboxPhotoId = photoId;
       document.getElementById('lightboxImage').src = photo.url;
       document.getElementById('lightboxTitle').textContent = photo.title;
-      document.getElementById('lightboxYear').textContent = `${photo.film || 'Silent Still'} • ${photo.year || ''}`;
+      
+      // Fixed: Only display the film/year once to prevent duplication like "The Rough House - 1917 • The Rough House - 1917"
+      document.getElementById('lightboxYear').textContent = photo.film || photo.year || 'Silent Still';
+      
       document.getElementById('lightboxDescription').textContent = photo.desc || 'Rare archival still of Buster Keaton.';
       document.getElementById('lightboxEraBadge').textContent = photo.era;
       document.getElementById('lightboxSubcategoryBadge').textContent = photo.subcategory || 'General';
 
+      const editBtn = document.getElementById('lightboxEditBtn');
       const delBtn = document.getElementById('lightboxDeleteBtn');
-      if (isAdminLoggedIn) delBtn.classList.remove('hidden');
-      else delBtn.classList.add('hidden');
+      if (isAdminLoggedIn) {
+        editBtn.classList.remove('hidden');
+        delBtn.classList.remove('hidden');
+      } else {
+        editBtn.classList.add('hidden');
+        delBtn.classList.add('hidden');
+      }
 
       const tagsContainer = document.getElementById('lightboxTags');
       tagsContainer.innerHTML = '';
@@ -1631,6 +1724,7 @@
           closeMobileMenu();
           intertitleModal.classList.add('opacity-0', 'pointer-events-none');
           document.getElementById('addPhotoModal').classList.add('opacity-0', 'pointer-events-none');
+          document.getElementById('editPhotoModal').classList.add('opacity-0', 'pointer-events-none');
           document.getElementById('adminLoginModal').classList.add('opacity-0', 'pointer-events-none');
         }
       });
@@ -1687,12 +1781,55 @@
       const addModal = document.getElementById('addPhotoModal');
       document.getElementById('openAddModalBtn').onclick = () => {
         const eraVal = document.getElementById('newEra').value;
-        populateSubcategoryDropdown(eraVal);
+        populateSubcategoryDropdown(eraVal, 'newSubcategory');
         addModal.classList.remove('opacity-0');
         addModal.classList.remove('pointer-events-none');
       };
       document.getElementById('closeAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
       document.getElementById('cancelAddModalBtn').onclick = () => addModal.classList.add('opacity-0', 'pointer-events-none');
+
+      // Edit Modal bindings
+      const editModal = document.getElementById('editPhotoModal');
+      document.getElementById('closeEditModalBtn').onclick = () => editModal.classList.add('opacity-0', 'pointer-events-none');
+      document.getElementById('cancelEditModalBtn').onclick = () => editModal.classList.add('opacity-0', 'pointer-events-none');
+
+      document.getElementById('lightboxEditBtn').onclick = () => {
+        if (!currentLightboxPhotoId) return;
+        const photo = photos.find(p => p.id === currentLightboxPhotoId);
+        if (!photo) return;
+
+        document.getElementById('editPhotoId').value = photo.id;
+        document.getElementById('editTitle').value = photo.title || '';
+        document.getElementById('editEra').value = photo.era || '1920–1928';
+        populateSubcategoryDropdown(photo.era || '1920–1928', 'editSubcategory');
+        document.getElementById('editSubcategory').value = photo.subcategory || '';
+        document.getElementById('editYear').value = photo.film || photo.year || '';
+        document.getElementById('editTags').value = photo.tags ? photo.tags.join(', ') : '';
+        document.getElementById('editDesc').value = photo.desc || '';
+
+        editModal.classList.remove('opacity-0', 'pointer-events-none');
+      };
+
+      document.getElementById('editEra').addEventListener('change', (e) => populateSubcategoryDropdown(e.target.value, 'editSubcategory'));
+
+      document.getElementById('editPhotoForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('editPhotoId').value;
+        const photo = photos.find(p => p.id === id);
+        if (!photo) return;
+
+        photo.title = document.getElementById('editTitle').value.trim();
+        photo.era = document.getElementById('editEra').value;
+        photo.subcategory = document.getElementById('editSubcategory').value;
+        photo.film = document.getElementById('editYear').value.trim();
+        photo.year = document.getElementById('editYear').value.trim();
+        photo.tags = document.getElementById('editTags').value.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
+        photo.desc = document.getElementById('editDesc').value.trim();
+
+        await updatePhotoInFirebase(photo);
+        editModal.classList.add('opacity-0', 'pointer-events-none');
+        openLightbox(id);
+      };
 
       // Tabs inside Add Photo modal
       document.getElementById('tabUploadDevice').onclick = () => {
@@ -1725,7 +1862,7 @@
         fileInput.value = '';
       };
 
-      document.getElementById('newEra').addEventListener('change', (e) => populateSubcategoryDropdown(e.target.value));
+      document.getElementById('newEra').addEventListener('change', (e) => populateSubcategoryDropdown(e.target.value, 'newSubcategory'));
 
       document.getElementById('addPhotoForm').onsubmit = async (e) => {
         e.preventDefault();
@@ -1766,7 +1903,7 @@
       bindEventListeners();
       initFirebaseSync();
       updateIntertitleCardStyle();
-      populateSubcategoryDropdown('1920–1928');
+      populateSubcategoryDropdown('1920–1928', 'newSubcategory');
     });
   </script>
 </body>
